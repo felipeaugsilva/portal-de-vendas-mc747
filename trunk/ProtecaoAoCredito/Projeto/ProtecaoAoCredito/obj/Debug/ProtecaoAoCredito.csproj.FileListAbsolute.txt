@@ -1,0 +1,5 @@
+H:\vs\projects2\ProtecaoAoCredito\ProtecaoAoCredito\bin\ProtecaoAoCredito.dll
+H:\vs\projects2\ProtecaoAoCredito\ProtecaoAoCredito\bin\ProtecaoAoCredito.pdb
+H:\vs\projects2\ProtecaoAoCredito\ProtecaoAoCredito\obj\Debug\ResolveAssemblyReference.cache
+H:\vs\projects2\ProtecaoAoCredito\ProtecaoAoCredito\obj\Debug\ProtecaoAoCredito.dll
+H:\vs\projects2\ProtecaoAoCredito\ProtecaoAoCredito\obj\Debug\ProtecaoAoCredito.pdb
