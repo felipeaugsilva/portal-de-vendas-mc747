@@ -29,13 +29,13 @@ if (isset($_POST['submit']))
                     <td>Usuario: </td>
                     <td><input id="txtUser" type="text"></td>
                 </tr>
-            <tr>
-                <td>Senha:</td>
-                <td><input name="txtPass" type="password>"></td>
-            </tr>
-            <tr>
-                <td><input name="submit" type="submit" value="Entrar"></td>
-            </tr>
+                <tr>
+                    <td>Senha:</td>
+                    <td><input name="txtPass" type="password>"></td>
+                </tr>
+                <tr>
+                  <td><input name="submit" type="submit" value="Entrar"></td>
+                </tr>
             <table>
         </form>
     </body>
