@@ -20,6 +20,14 @@ try {
     echo "<b>Dimensoes: </b>".$resultComp03[8]." x ".$resultComp03[9]." x ".$resultComp03[10]." (comprimento x largura x altura)<br/><br/>";
     echo "<b>Preco: </b>R$ ".$resultComp01->ReturnProductInfoResult->Price."<br/>";
     echo "<b>Quantidade em estoque: </b>".$resultComp01->ReturnProductInfoResult->Quantity."<br/><br/>";
+    if(intval($resultComp01->ReturnProductInfoResult->Quantity) > 0)
+    {
+        //echo "<form id=\"frmComprar\" method=\"get\" action=\"carrinho_de_compras.php?prodID=".$prodID."\">";
+        //echo "<input id=\"btnComprar\" type=\"submit\" value=\"Comprar\">";
+        echo "<a href=\"carrinho_de_compras.php?prodID=".$prodID."\">Comprar</a>";
+        //echo "</form>";
+        //echo "<input id=\"btnComprar\" type=\"button\" value=\"Comprar\" onclick=\"javascript: window.location(\"carrinho_de_compras.php?prodID=".$prodID."\")\">";
+    }   
 
 } catch (Exception $e) {
     echo "Exception: ";
