@@ -31,7 +31,7 @@ if (isset($_POST['submit']))
                 </tr>
                 <tr>
                     <td>Senha:</td>
-                    <td><input name="txtPass" type="password>"></td>
+                    <td><input name="txtPass" type="password"></td>
                 </tr>
                 <tr>
                   <td><input name="submit" type="submit" value="Entrar"></td>
