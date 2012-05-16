@@ -10,6 +10,8 @@ if (isset($_POST['submit']))
         //$result = $client->NOME_DO_METODO($_POST['txtUser'], $_POST['txtPass']);
 
         //if (sucesso) {
+            session_start("sessao");
+            $_SESSION['cpf'] = $_POST['txtUser'];
             header('Location: categorias.php');
         //} else {
             //echo "<script language='javascript'>alert(\"Autenticacao falhou!\")</script>";
@@ -27,7 +29,7 @@ if (isset($_POST['submit']))
             <table>
                 <tr>
                     <td>Usuario: </td>
-                    <td><input id="txtUser" type="text"></td>
+                    <td><input name="txtUser" id="txtUser" type="text"></td>
                 </tr>
                 <tr>
                     <td>Senha:</td>
