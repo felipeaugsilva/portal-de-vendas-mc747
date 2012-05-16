@@ -24,7 +24,7 @@ try {
     {
         //echo "<form id=\"frmComprar\" method=\"get\" action=\"carrinho_de_compras.php?prodID=".$prodID."\">";
         //echo "<input id=\"btnComprar\" type=\"submit\" value=\"Comprar\">";
-        echo "<a href=\"carrinho_de_compras.php?prodID=".$prodID."\">Comprar</a>";
+        echo "<a href=\"carrinho_de_compras.php?action=adicionar&prodID=".$prodID."\">Comprar</a>";
         //echo "</form>";
         //echo "<input id=\"btnComprar\" type=\"button\" value=\"Comprar\" onclick=\"javascript: window.location(\"carrinho_de_compras.php?prodID=".$prodID."\")\">";
     }   

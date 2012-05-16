@@ -3,74 +3,109 @@ try {
 
     include("wsdl.php");
 
-    session_start("carrinho");
-    
-    if (!$_SESSION['carrinho'] || $_SESSION['carrinho'] == "") 
+    session_start("sessao");
+
+    /*if(!isset($_SESSION['cpf']))
     {
-        $_SESSION['carrinho'] = array();
+        header('Location: login.php');
     }
-
-    $prodID = $_GET["prodID"];
-
-    /*if(!in_array($prodID,$_SESSION['carrinho']))
+    else*/
     {
-        $total_chaves = array_keys($_SESSION['carrinho']);
-        $tamanho_array = sizeof($total_chaves);
-        $_SESSION["carrinho"][$tamanho_array] = $prodID;
-    }*/
+        $action = $_GET["action"];
 
-    if(!$_SESSION["carrinho"][$prodID] || $_SESSION["carrinho"][$prodID] == "")
-    {
-        $_SESSION["carrinho"][$prodID] = array();
+        if($action == "adicionar")
+        {
+            if (!$_SESSION['carrinho'] || $_SESSION['carrinho'] == "") 
+            {
+                $_SESSION['carrinho'] = array();
+            }
 
-        // componente 01 - estoque    
-        $client = new SoapClient($wsdlComp01);
-        $resultComp01 = $client->ReturnProductInfo(array("ID" => "$prodID"));
-        
-        // componente 03 - informacoes produto
-        $client = new SoapClient($wsdlComp03);
-        $resultComp03 = $client->exibeDetalhesID($prodID);
+            $prodID = $_GET["prodID"];
 
-        $_SESSION["carrinho"][$prodID]["nome"] = $resultComp03[1];
-        $_SESSION["carrinho"][$prodID]["qtd"] = 1;
-        $_SESSION["carrinho"][$prodID]["preco"] = $resultComp01->ReturnProductInfoResult->Price;   
-    }
-    else
-    {
-        $_SESSION["carrinho"][$prodID]["qtd"] = intval($_SESSION["carrinho"][$prodID]["qtd"]) + 1;
-    }
+            if(!$_SESSION["carrinho"][$prodID] || $_SESSION["carrinho"][$prodID] == "")
+            {
+                $_SESSION["carrinho"][$prodID] = array();
 
-    echo "<table>";
-    echo "<tr>";
-    echo "<td><b>Produto</b></td>";
-    echo "<td><b>Quantidade</b></td>";
-    echo "<td><b>Preco</b></td>";
-    echo "<td><b>Total</b></td>";
-    echo "</tr>";
+                // componente 01 - estoque    
+                $client = new SoapClient($wsdlComp01);
+                $resultComp01 = $client->ReturnProductInfo(array("ID" => "$prodID"));
 
-    $total = intval(0);
-    foreach($_SESSION["carrinho"] as $produto)
-    {
+                // componente 03 - informacoes produto
+                $client = new SoapClient($wsdlComp03);
+                $resultComp03 = $client->exibeDetalhesID($prodID);
+
+                $_SESSION["carrinho"][$prodID]["id"] = $prodID;
+                $_SESSION["carrinho"][$prodID]["nome"] = $resultComp03[1];
+                $_SESSION["carrinho"][$prodID]["qtd"] = 1;
+                $_SESSION["carrinho"][$prodID]["preco"] = $resultComp01->ReturnProductInfoResult->Price;   
+            }
+            else
+            {
+                $_SESSION["carrinho"][$prodID]["qtd"] = intval($_SESSION["carrinho"][$prodID]["qtd"]) + 1;
+            }
+        }
+        else if($action == "atualizar")
+        {
+            foreach($_SESSION["carrinho"] as $produto)
+            {
+                $qtd = $_GET["qtd".$produto["id"]];
+
+                if(intval($qtd) > 0)
+                {
+                    $produto["qtd"] = $qtd;
+                }
+                else
+                {
+                    $produto = NULL;
+                }
+            }
+        }
+        else if($action == "frete")
+        {
+            $client = new SoapClient($wsdlComp09);
+            $resultComp09 = $client->ReturnProductInfo(array("ID" => "$prodID"));
+        }
+
+        echo "<table>";
         echo "<tr>";
-        echo "<td>".$produto["nome"]."</td>";
-        echo "<td>".$produto["qtd"]."</td>";
-        echo "<td>".$produto["preco"]."</td>";
-        $total_produto = intval($produto["qtd"]) * intval($produto["preco"]);
-        $total = intval($total) + intval($total_produto);
-        echo "<td>".$total_produto."</td>";
+        echo "<td><b>Produto</b></td>";
+        echo "<td><b>Quantidade</b></td>";
+        echo "<td><b>Preco</b></td>";
+        echo "<td><b>Total</b></td>";
+        echo "<td><a href=\"carrinho_de_compras.php?action=atualizar\">Atualizar</a></td>";
+        echo "</tr>";
+
+        $total = intval(0);
+        foreach($_SESSION["carrinho"] as $produto)
+        {
+            echo "<tr>";
+            echo "<td>".$produto["id"]." - ".$produto["nome"]."</td>";
+            echo "<td><input id=\"qtd".$produto["id"]."\" name=\"qtd".$produto["id"]."\"type=\"text\" value=\"".$produto["qtd"]."\"></td>";
+            echo "<td>".$produto["preco"]."</td>";
+            $total_produto = intval($produto["qtd"]) * intval($produto["preco"]);
+            $total = intval($total) + intval($total_produto);
+            echo "<td>".$total_produto."</td>";
+            echo "<tr>";
+        }
+
         echo "<tr>";
+        echo "<td></td>";
+        echo "<td></td>";
+        echo "<td><b>Total</b></td>";
+        echo "<td><b>".$total."</b></td>";
+        echo "</tr>";
+
+        echo "</table>";
+
+        echo "<table>";
+        echo "<tr>";
+        echo "<td>Calcular frete: </td>";
+        echo "<td><input id=\"cep\" type=\"text\" maxlength=\"8\"></td>";
+        echo "<td><a href=\"carrinho_de_compras.php?action=frete\">Calcular</a></td>";
+        echo "<td></td>";
+        echo "</tr>";
+        echo "</table>";
     }
-
-    echo "<tr>";
-    echo "<td></td>";
-    echo "<td></td>";
-    echo "<td><b>Total</b></td>";
-    echo "<td><b>".$total."</b></td>";
-    echo "</tr>";
-    
-    echo "</table>";
-
-    //session_destroy();
 
 } catch (Exception $e) {
     echo "Exception: ";
