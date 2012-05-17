@@ -15,14 +15,14 @@ try {
 
         if($action == "adicionar")
         {
-            if (!$_SESSION['carrinho'] || $_SESSION['carrinho'] == "") 
+            if (!isset($_SESSION["carrinho"]) || $_SESSION["carrinho"] == "") 
             {
-                $_SESSION['carrinho'] = array();
+                $_SESSION["carrinho"] = array();
             }
 
             $prodID = $_GET["prodID"];
 
-            if(!$_SESSION["carrinho"][$prodID] 
+            if(!isset($_SESSION["carrinho"][$prodID]) 
                 || $_SESSION["carrinho"][$prodID] == "")
             {
                 $_SESSION["carrinho"][$prodID] = array();
@@ -39,13 +39,13 @@ try {
                 $_SESSION["carrinho"][$prodID]["id"] = $prodID;
                 $_SESSION["carrinho"][$prodID]["nome"] = $resultComp03[1];
                 $_SESSION["carrinho"][$prodID]["qtd"] = 1;
-                $_SESSION["carrinho"][$prodID]["preco"] = 
-                    $resultComp01->ReturnProductInfoResult->Price;   
+                $_SESSION["carrinho"][$prodID]["preco"] = $resultComp01->ReturnProductInfoResult->Price;   
+                $_SESSION["carrinho"][$prodID]["peso"] = $resultComp03[7];
+                $_SESSION["carrinho"][$prodID]["volume"] = intval($resultComp03[8]) * intval($resultComp03[9]) * intval($resultComp03[10]); 
             }
             else
             {
-                $_SESSION["carrinho"][$prodID]["qtd"] = 
-                    intval($_SESSION["carrinho"][$prodID]["qtd"]) + 1;
+                $_SESSION["carrinho"][$prodID]["qtd"] = intval($_SESSION["carrinho"][$prodID]["qtd"]) + 1;
             }
         }
         else if($action == "atualizar")
@@ -110,12 +110,12 @@ try {
 
             echo "</table>";
 
+            echo "<form id=\"frmFrete\" method=\"post\" action=\"carrinho_de_compras?action=frete\">";
             echo "<table>";
             echo "<tr>";
             echo "<td>Calcular frete: </td>";
-            echo "<td><input id=\"cep\" type=\"text\" maxlength=\"8\"></td>";
-            echo "<td><a href=\"carrinho_de_compras.php?action=frete\">
-                Calcular</a></td>";
+            echo "<td><input id=\"cep\" name=\"cep\" type=\"text\" maxlength=\"8\"></td>";
+            echo "<td><input type=\"submit\" id=\"btnFrete\" value=\"Calcular\"></td>";
             echo "<td></td>";
             echo "</tr>";
             echo "</table>";
