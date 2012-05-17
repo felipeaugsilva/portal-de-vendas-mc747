@@ -185,6 +185,18 @@ try {
             echo "<td></td>";
             echo "</tr>";
             echo "</table>";
+            echo "</form>";
+
+            echo "<table>";
+            echo "<tr>";
+            echo "<td><form id=\"frmContinuar\" method=\"post\" action=\"categorias.php\">
+                    <input id=\"btnContinuar\" type=\"submit\" value=\"Continuar comprando\">
+                  </form></td>";
+            echo "<td><form id=\"frmFinalizar\" method=\"post\" action=\"\">
+                <input id=\"btnFinalizar\" type=\"submit\" method=\"\" action=\"\" value=\"Finalizar compra\">
+                </form></td>";
+            echo "</tr>";
+            echo "</table>";
             //echo "</form>";
         }
         else
