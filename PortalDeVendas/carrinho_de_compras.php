@@ -13,6 +13,21 @@ try {
     {
         $action = $_GET["action"];
 
+        if(isset($_SESSION["frete"]))
+        {
+            unset($_SESSION["frete"]);
+        }
+
+        if(isset($_SESSION["prazo"]))
+        {
+            unset($_SESSION["prazo"]);
+        }
+
+        if(isset($_SESSION["erroFrete"]))
+        {
+            unset($_SESSION["erroFrete"]);
+        }
+
         if($action == "adicionar")
         {
             if (!isset($_SESSION["carrinho"]) || $_SESSION["carrinho"] == "") 
@@ -40,8 +55,9 @@ try {
                 $_SESSION["carrinho"][$prodID]["nome"] = $resultComp03[1];
                 $_SESSION["carrinho"][$prodID]["qtd"] = 1;
                 $_SESSION["carrinho"][$prodID]["preco"] = $resultComp01->ReturnProductInfoResult->Price;   
-                $_SESSION["carrinho"][$prodID]["peso"] = $resultComp03[7];
-                $_SESSION["carrinho"][$prodID]["volume"] = intval($resultComp03[8]) * intval($resultComp03[9]) * intval($resultComp03[10]); 
+                $_SESSION["carrinho"][$prodID]["peso"] = (float) $resultComp03[7];
+                $_SESSION["carrinho"][$prodID]["volume"] = (float) ((((float)$resultComp03[8]) / 100) * 
+                    (((float)$resultComp03[9]) / 100) * (((float)$resultComp03[10]) / 100)); 
             }
             else
             {
@@ -52,7 +68,7 @@ try {
         {
             $prodID = $_GET["prodID"];
             $qtd = $_POST["qtd".$prodID];
-            
+
             if(intval($qtd) > 0)
             {
                 $_SESSION["carrinho"][$prodID]["qtd"] = $qtd;
@@ -65,9 +81,27 @@ try {
         }
         else if($action == "frete")
         {
-            $client = new SoapClient($wsdlComp09);
-            $resultComp09 = $client->ReturnProductInfo(
-                array("ID" => "$prodID"));
+            $client = new SoapClient($wsdlComp06);
+            $cep = $_POST["cep"];
+
+            $peso = 0;
+            $volume = 0;
+            foreach($_SESSION["carrinho"] as $produto)
+            {
+                $peso = ((float) $peso) + ((float) $produto["peso"]) * $produto["qtd"];
+                $volume = ((float) $volume) + ((float) $produto["volume"]) * intval($produto["qtd"]);
+            }
+
+            $args = array("peso" => $peso, 
+                "volume" => $volume,
+                "cep" => $cep,
+                "modo_entrega" => 3);
+
+            $resultComp06 = $client->calculaFrete($args);
+            $_SESSION["frete"] = $resultComp06->calculaFreteReturn[1];
+            $_SESSION["prazo"] = $resultComp06->calculaFreteReturn[2];
+            $_SESSION["erroFrete"] = $resultComp06->calculaFreteReturn[0];
+
         }
 
         if(!empty($_SESSION["carrinho"]))
@@ -101,6 +135,18 @@ try {
                 echo "<tr>";
             }
 
+            if(isset($_SESSION["frete"]))
+            {
+                $frete = round($_SESSION["frete"], 2);
+                $total = $total + $frete;
+                echo "<tr>";
+                echo "<td></td>";
+                echo "<td></td>";
+                echo "<td>Frete</td>";
+                echo "<td>".$frete."</td>";
+                echo "</tr>";
+            }
+
             echo "<tr>";
             echo "<td></td>";
             echo "<td></td>";
@@ -110,8 +156,28 @@ try {
 
             echo "</table>";
 
-            echo "<form id=\"frmFrete\" method=\"post\" action=\"carrinho_de_compras?action=frete\">";
+            echo "<form id=\"frmFrete\" method=\"post\" action=\"carrinho_de_compras.php?action=frete\">";
             echo "<table>";
+            if(isset($_SESSION["erroFrete"]))
+            {
+                $erroFrete = $_SESSION["erroFrete"];
+                if($erroFrete == 1)
+                {
+                    echo "<tr>";
+                    echo "<td>CEP invalido.</td>";
+                    echo "<td></td>";
+                    echo "<td></td>";
+                    echo "</tr>";
+                }
+                else if(isset($_SESSION["prazo"]))
+                {
+                    echo "<tr>";
+                    echo "<td>Prazo de entrega: ".$_SESSION["prazo"]." dia(s)</td>";
+                    echo "<td></td>";
+                    echo "<td></td>";
+                    echo "</tr>";
+                }
+            }
             echo "<tr>";
             echo "<td>Calcular frete: </td>";
             echo "<td><input id=\"cep\" name=\"cep\" type=\"text\" maxlength=\"8\"></td>";
