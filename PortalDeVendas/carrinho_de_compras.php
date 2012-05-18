@@ -101,107 +101,133 @@ try {
             $_SESSION["frete"] = $resultComp06->calculaFreteReturn[1];
             $_SESSION["prazo"] = $resultComp06->calculaFreteReturn[2];
             $_SESSION["erroFrete"] = $resultComp06->calculaFreteReturn[0];
+            $_SESSION["cep"] = $cep;
 
         }
 
         if(!empty($_SESSION["carrinho"]))
         {
-            // echo "<form id=\"frmCarrinho\" action=\"\" method=\"post\">";
-            echo "<table>";
-            echo "<tr>";
-            echo "<td><b>Produto</b></td>";
-            echo "<td><b>Quantidade</b></td>";
-            echo "<td><b>Preco</b></td>";
-            echo "<td><b>Total</b></td>";
-            //echo "<td><a href=\"carrinho_de_compras.php?action=atualizar\">Atualizar</a></td>";
-            echo "</tr>";
+?>
+            <table>
+                <tr>
+                    <td><b>Produto</b></td>
+                    <td><b>Quantidade</b></td>
+                    <td><b>Preco</b></td>
+                    <td><b>Total</b></td>
+                </tr>
+                
+<?php
 
             $total = intval(0);
             foreach($_SESSION["carrinho"] as $produto)
             {
-                echo "<tr>";
-                echo "<td>".$produto["id"]." - ".$produto["nome"]."</td>";
-                echo "<td>
-                    <form id=\"frmQtd".$produto["id"]."\" method=\"post\" action=\"carrinho_de_compras.php?action=atualizar&prodID=".$produto["id"]."\">
-                    <input id=\"qtd".$produto["id"]."\" name=\"qtd".$produto["id"]."\"type=\"text\" value=\"".$produto["qtd"]."\">
-                    <input type=\"submit\" id=\"btnQtd".$produto["id"]."\" value=\"Atualizar\">
+?>
+                <tr>
+                    <td><?php echo $produto["id"]." - ".$produto["nome"]; ?></td>
+                    <td>
+                    <form id="frmQtd<?php echo $produto["id"]; ?>" 
+                        method="post" 
+                        action="carrinho_de_compras.php?action=atualizar&prodID=<?php echo $produto["id"]; ?>" >
+                    <input id="qtd<?php echo $produto["id"]; ?>" 
+                        name="qtd<?php echo $produto["id"]; ?>" type="text" 
+                        value="<?php echo $produto["qtd"]; ?>">
+                    <input type="submit" id="btnQtd<?php echo $produto["id"]; ?>" value="Atualizar">
                     </form>
-                    </td>";
-                echo "<td>".$produto["preco"]."</td>";
-                $total_produto = intval($produto["qtd"]) * 
-                    intval($produto["preco"]);
-                $total = intval($total) + intval($total_produto);
-                echo "<td>".$total_produto."</td>";
-                echo "<tr>";
+                    </td>
+                    <td><?php echo $produto["preco"]; ?></td>
+<?php
+                        $total_produto = intval($produto["qtd"]) * intval($produto["preco"]);
+                        $total = intval($total) + intval($total_produto);
+?>
+                    <td><?php echo $total_produto; ?></td>
+                <tr>
+                
+<?php
             }
 
             if(isset($_SESSION["frete"]))
             {
                 $frete = round($_SESSION["frete"], 2);
                 $total = $total + $frete;
-                echo "<tr>";
-                echo "<td></td>";
-                echo "<td></td>";
-                echo "<td>Frete</td>";
-                echo "<td>".$frete."</td>";
-                echo "</tr>";
+                $_SESSION["total"] = $total;
+?>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Frete</td>
+                    <td><?php echo $frete; ?></td>
+                </tr>
+<?php
             }
+?>
 
-            echo "<tr>";
-            echo "<td></td>";
-            echo "<td></td>";
-            echo "<td><b>Total</b></td>";
-            echo "<td><b>".$total."</b></td>";
-            echo "</tr>";
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><b>Total</b></td>
+                    <td><b><?php echo $total; ?></b></td>
+                </tr>
 
-            echo "</table>";
+            </table>
 
-            echo "<form id=\"frmFrete\" method=\"post\" action=\"carrinho_de_compras.php?action=frete\">";
-            echo "<table>";
+            <form id="frmFrete" method="post" action="carrinho_de_compras.php?action=frete">
+                <table>
+<?php
             if(isset($_SESSION["erroFrete"]))
             {
                 $erroFrete = $_SESSION["erroFrete"];
                 if($erroFrete == 1)
                 {
-                    echo "<tr>";
-                    echo "<td>CEP invalido.</td>";
-                    echo "<td></td>";
-                    echo "<td></td>";
-                    echo "</tr>";
+?>
+                    <tr>
+                        <td>CEP invalido.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+<?php
                 }
                 else if(isset($_SESSION["prazo"]))
                 {
-                    echo "<tr>";
-                    echo "<td>Prazo de entrega: ".$_SESSION["prazo"]." dia(s)</td>";
-                    echo "<td></td>";
-                    echo "<td></td>";
-                    echo "</tr>";
+?>
+                    <tr>
+                        <td>Prazo de entrega: <?php echo $_SESSION["prazo"]; ?> dia(s)</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+<?php
                 }
             }
-            echo "<tr>";
-            echo "<td>Calcular frete: </td>";
-            echo "<td><input id=\"cep\" name=\"cep\" type=\"text\" maxlength=\"8\"></td>";
-            echo "<td><input type=\"submit\" id=\"btnFrete\" value=\"Calcular\"></td>";
-            echo "<td></td>";
-            echo "</tr>";
-            echo "</table>";
-            echo "</form>";
+?>
+                    <tr>
+                        <td>Calcular frete: </td>
+                        <td><input id="cep" name="cep" type="text" maxlength="8"></td>
+                        <td><input type="submit" id="btnFrete" value="Calcular"></td>
+                        <!--<td></td>-->
+                    </tr>
+                </table>
+            </form>
 
-            echo "<table>";
-            echo "<tr>";
-            echo "<td><form id=\"frmContinuar\" method=\"post\" action=\"categorias.php\">
-                    <input id=\"btnContinuar\" type=\"submit\" value=\"Continuar comprando\">
-                  </form></td>";
-            echo "<td><form id=\"frmFinalizar\" method=\"post\" action=\"\">
-                <input id=\"btnFinalizar\" type=\"submit\" method=\"\" action=\"\" value=\"Finalizar compra\">
-                </form></td>";
-            echo "</tr>";
-            echo "</table>";
-            //echo "</form>";
+            <table>
+                <tr>
+                    <td>
+                        <form id="frmContinuar" method="post" action="categorias.php">
+                            <input id="btnContinuar" type="submit" value="Continuar comprando">
+                        </form>
+                    </td>
+                    <td>
+                        <form id="frmFinalizar" method="post" action="selecionar_endereco.php?action=continuar">
+                            <input id="btnFinalizar" type="submit" value="Finalizar compra">
+                        </form>
+                    </td>
+                </tr>
+            </table>
+<?php
         }
         else
         {
-            echo "Carrinho vazio";
+?>
+            Carrinho vazio
+<?php
         }
     }
 
