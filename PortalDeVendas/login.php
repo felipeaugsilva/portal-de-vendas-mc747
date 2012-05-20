@@ -12,7 +12,7 @@ if (isset($_POST['submit']))
         //if (sucesso) {
             session_start("sessao");
             $_SESSION['cpf'] = $_POST['txtUser'];
-            header('Location: categorias.php');
+            header('Location: index.php');
         //} else {
             //echo "<script language='javascript'>alert(\"Autenticacao falhou!\")</script>";
         //}
