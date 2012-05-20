@@ -12,6 +12,8 @@ try
 {
     echo "<h2>Chamados</h2>";
     
+    echo "<h3><a href=\"index.php\">Home</a></h3>";
+    
     $client = new SoapClient($wsdlComp08);
     
     $args = array ( "idCliente"     => "00000000-0000-0000-0000-000000000004",
