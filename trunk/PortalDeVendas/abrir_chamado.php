@@ -12,11 +12,13 @@ if (isset($_POST['submit']))
         
         $client = new SoapClient($wsdlComp08);
         
+        $cpf = "7";     // TODO pegar da sessao
+        
         $args = array("chamado" => array( "Descricao"     => $_POST['descricao'],
                                           "IdCliente"     => "00000000-0000-0000-0000-000000000004",
                                           "IdPedido"      => $_POST['idPedido'],
                                           "IdProduto"     => $_POST['idProduto'],
-                                          "IdSolicitante" => "1",
+                                          "IdSolicitante" => $cpf,
                                           "TipoChamado"   => $tipos[$tipoEscolhido] ));
         
         $result = $client->Abrir_Chamado($args);
@@ -37,7 +39,7 @@ else {
 
 <html>
 <body>
-    <h3>Abrir Chamado</h3>
+    <h2>Abrir Chamado</h2>
     <form name="novoChamado" action="" method="post">
         <table>
             <tr>
