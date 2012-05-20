@@ -29,6 +29,8 @@ if (isset($_POST['submit']))
         
         echo "<h2>Seu chamado foi aberto!</h2>";
         
+        echo "<h3><a href=\"index.php\">Home</a></h3>";
+        
         echo "<p><b>ID do chamado: </b>".$result->Abrir_ChamadoResult->Id."</p>";
         
         echo "<p><a href=\"chamados.php\">Ir para chamados</a></p>";
@@ -44,6 +46,9 @@ else {
 <html>
 <body>
     <h2>Abrir Chamado</h2>
+    
+    <h3><a href="index.php">Home</a></h3>
+    
     <form name="novoChamado" action="" method="post">
         <table>
             <tr>

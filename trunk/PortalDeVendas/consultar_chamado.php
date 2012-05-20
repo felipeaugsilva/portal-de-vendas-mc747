@@ -21,6 +21,9 @@ try
 ?>
     
     <h2>Detalhes do chamado</h2>
+    
+    <h3><a href="index.php">Home</a></h3>
+    
     <table>
         <tr>
             <td><b>ID do chamado:</b></td>
