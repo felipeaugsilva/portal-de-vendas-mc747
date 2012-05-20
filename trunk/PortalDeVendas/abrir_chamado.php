@@ -1,29 +1,52 @@
-<html>
-
 <?php
+
+include("wsdl.php");
+
 $tipos = array("Reclamacao"=>0, "Sugestao"=>1, "Troca"=>2, "Duvida"=>3, "Outro"=>4);
 
 if (isset($_POST['submit']))
 {
     try
     {
-        include("wsdl.php");
-        
         $tipoEscolhido = $_POST['tipo'];
 
+        if ($_POST['idPedido'] != NULL) {
+            $idPedido = $_POST['idPedido'];
+        } else {
+            $idPedido = "1";
+        }
+        if ($_POST['idProduto'] != NULL) {
+            $idProduto = $_POST['idProduto'];
+        } else {
+            $idProduto = "1";
+        }
+        
         $client = new SoapClient($wsdlComp08);
-
-        $result = $client->Abrir_Chamado(1, $_POST['descricao'], NULL, NULL, $tipos["$tipoEscolhido"]); // TODO: exception nesse ponto
-
-        print_r($result);
+        
+        $args = array("chamado" => array( "Descricao"     => $_POST['descricao'],
+                                          "IdCliente"     => "00000000-0000-0000-0000-000000000004",
+                                          "IdPedido"      => $idPedido,
+                                          "IdProduto"     => $idProduto,
+                                          "IdSolicitante" => "1",
+                                          "TipoChamado"   => $tipos[$tipoEscolhido] ));
+        
+        $result = $client->Abrir_Chamado($args);
+        
+        echo "<h3>Seu chamado foi aberto!</h3>";
+        
+        echo "<p><b>ID do chamado: </b>".$result->Abrir_ChamadoResult->Id."</p>";
+        
+        echo "<p><a href=\"chamados.php\">Ir para chamados</a></p>";
 
     } catch (Exception $e) {
         echo "Exception: ";
         echo $e->getMessage();
     }
 }
+else {
 ?>
 
+<html>
 <body>
     <h3>Abrir Chamado</h3>
     <form name="novoChamado" action="" method="post">
@@ -42,6 +65,13 @@ if (isset($_POST['submit']))
                     ?>
                 </select></td>
             </tr>
+            <td>ID do pedido:</td>
+                <td><input name="idPedido" type="text"></td>
+            </tr>
+            <tr>
+            <td>ID do produto:</td>
+                <td><input name="idProduto" type="text"></td>
+            </tr>
             <tr>
                 <td><input type="submit" name="submit" value="Enviar"></td>
             </tr>
@@ -50,3 +80,6 @@ if (isset($_POST['submit']))
 </body>
 </html>
 
+<?php
+}
+?>
