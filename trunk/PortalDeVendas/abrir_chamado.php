@@ -9,24 +9,13 @@ if (isset($_POST['submit']))
     try
     {
         $tipoEscolhido = $_POST['tipo'];
-
-        if ($_POST['idPedido'] != NULL) {
-            $idPedido = $_POST['idPedido'];
-        } else {
-            $idPedido = "1";
-        }
-        if ($_POST['idProduto'] != NULL) {
-            $idProduto = $_POST['idProduto'];
-        } else {
-            $idProduto = "1";
-        }
         
         $client = new SoapClient($wsdlComp08);
         
         $args = array("chamado" => array( "Descricao"     => $_POST['descricao'],
                                           "IdCliente"     => "00000000-0000-0000-0000-000000000004",
-                                          "IdPedido"      => $idPedido,
-                                          "IdProduto"     => $idProduto,
+                                          "IdPedido"      => $_POST['idPedido'],
+                                          "IdProduto"     => $_POST['idProduto'],
                                           "IdSolicitante" => "1",
                                           "TipoChamado"   => $tipos[$tipoEscolhido] ));
         
