@@ -62,7 +62,7 @@ try {
 
 <html>
 <body>
-    <h3>Forma de pagamento: Banco</h3>
+    <h2>Forma de pagamento: Banco</h2>
     <form name="formBanco" action="" method="post">
         <table>
             <tr>

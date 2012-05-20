@@ -27,7 +27,7 @@ if (isset($_POST['submit']))
         
         $result = $client->Abrir_Chamado($args);
         
-        echo "<h3>Seu chamado foi aberto!</h3>";
+        echo "<h2>Seu chamado foi aberto!</h2>";
         
         echo "<p><b>ID do chamado: </b>".$result->Abrir_ChamadoResult->Id."</p>";
         

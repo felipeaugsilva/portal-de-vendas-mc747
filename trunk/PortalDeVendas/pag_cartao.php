@@ -61,7 +61,7 @@ try {
 
 <html>
 <body>
-    <h3>Forma de pagamento: Cartao de Credito</h3>
+    <h2>Forma de pagamento: Cartao de Credito</h2>
     <form name="formCartao" action="" method="post">
         <table>
             <tr>
