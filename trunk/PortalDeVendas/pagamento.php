@@ -2,8 +2,7 @@
 
 session_start("sessao");
 
-/*if (!isset($_SESSION['cpf']))
-{
+/*if ($_SESSION['cpf'] == NULL) {
     header('Location: login.php');
 }*/
 
