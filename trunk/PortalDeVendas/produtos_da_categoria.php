@@ -5,6 +5,8 @@ try {
     $client = new SoapClient($wsdlComp03);
     $result = $client->buscaAvancada($_GET["categID"], NULL);
 
+    echo "<h2>Produtos</h2>";
+    
     foreach ($result as $produto) {
         echo "<p><a href=\"detalhes_do_produto.php?prodID=".$produto[0]."\">".$produto[1]."</a></p>";
   	}

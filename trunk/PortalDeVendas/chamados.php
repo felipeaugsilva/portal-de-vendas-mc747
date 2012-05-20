@@ -2,12 +2,19 @@
 
 include("wsdl.php");
 
+session_start("sessao");
+
+/*if (!isset($_SESSION['cpf'])) {
+    header('Location: login.php');
+}*/
+
 try
 {
     echo "<h2>Chamados</h2>";
     
     $client = new SoapClient($wsdlComp08);
 
+    //$cpf = $_SESSION['cpf'];
     $cpf = "7";     // TODO pegar da sessao
     
     $args = array ( "idCliente"     => "00000000-0000-0000-0000-000000000004",

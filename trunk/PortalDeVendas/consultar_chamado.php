@@ -2,6 +2,12 @@
 
 include("wsdl.php");
 
+session_start("sessao");
+
+/*if (!isset($_SESSION['cpf'])) {
+    header('Location: login.php');
+}*/
+
 $tipos = array("Reclamacao", "Sugestao", "Troca", "Duvida", "Outro");
 
 try

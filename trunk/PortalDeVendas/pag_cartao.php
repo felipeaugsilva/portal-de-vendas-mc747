@@ -2,64 +2,61 @@
 
 session_start("sessao");
 
-/*if (!isset($_SESSION['cpf']))
-{
+/*if (!isset($_SESSION['cpf'])) {
     header('Location: login.php');
-}
-else
-{*/
-    include("wsdl.php");
+}*/
 
-    try {
-        // componente 05 - cartao de credito
-        $client = new SoapClient($wsdlComp05);
-        
-        if (isset($_POST['submit']))
-        {
-            //echo $_POST['nome']."<br/>";
-            /*$args = array ( "ValorDaCompra" => "10",
-                            "NomeDoTitular" => $_POST['nome'],
-                            "BandeiraDoCartão" => $_POST['bandeira'],
-                            "NumeroDoCartão" => $_POST['numCartao'],
-                            "dataDeValidade" => $_POST['validade'],
-                            "CodigoDeSeguranca" => $_POST['codSeg'],
-                            "QuantidadeDeParcelas" => "1" );
-                            
-            $resultComp05 = $client->validaCompra($args);
+include("wsdl.php");
+
+try {
+    // componente 05 - cartao de credito
+    $client = new SoapClient($wsdlComp05);
     
-            print_r($resultComp05);*/
-            
-            //if (sucesso) {
-                header('Location: compra_finalizada.php');
-            //} else {
-                //echo "<script language='javascript'>alert(\"Erro!\")</script>";
-            //}
-        }
-        
-        $resultComp05 = $client->listaCartoes();
-        
-        //print_r( $resultComp05 );
-        
-        /*foreach ($resultComp05->return as $return)
-        {
-            echo $return->bandeira."<br/>";
-            echo $return->quantidade_max_parcelas."<br/>";
-            if (is_array($return->juros)) {
-                foreach ($return->juros as $row) {
-                    echo $row->numero.", ".$row->juros."<br/>";
-                }
-            }
-            else {
-                echo $return->juros->numero.", ".$return->juros->juros."<br/>";
-            }
-            echo "<br/>";
-        }*/
+    if (isset($_POST['submit']))
+    {
+        //echo $_POST['nome']."<br/>";
+        /*$args = array ( "ValorDaCompra" => "10",
+                        "NomeDoTitular" => $_POST['nome'],
+                        "BandeiraDoCartão" => $_POST['bandeira'],
+                        "NumeroDoCartão" => $_POST['numCartao'],
+                        "dataDeValidade" => $_POST['validade'],
+                        "CodigoDeSeguranca" => $_POST['codSeg'],
+                        "QuantidadeDeParcelas" => "1" );
+                        
+        $resultComp05 = $client->validaCompra($args);
 
-    } catch (Exception $e) {
-        echo "Exception: ";
-        echo $e->getMessage();
+        print_r($resultComp05);*/
+        
+        //if (sucesso) {
+            header('Location: compra_finalizada.php');
+        //} else {
+            //echo "<script language='javascript'>alert(\"Erro!\")</script>";
+        //}
     }
-//}
+    
+    $resultComp05 = $client->listaCartoes();
+    
+    //print_r( $resultComp05 );
+    
+    /*foreach ($resultComp05->return as $return)
+    {
+        echo $return->bandeira."<br/>";
+        echo $return->quantidade_max_parcelas."<br/>";
+        if (is_array($return->juros)) {
+            foreach ($return->juros as $row) {
+                echo $row->numero.", ".$row->juros."<br/>";
+            }
+        }
+        else {
+            echo $return->juros->numero.", ".$return->juros->juros."<br/>";
+        }
+        echo "<br/>";
+    }*/
+
+} catch (Exception $e) {
+    echo "Exception: ";
+    echo $e->getMessage();
+}
 ?>
 
 <html>
