@@ -2,6 +2,12 @@
 
 include("wsdl.php");
 
+session_start("sessao");
+
+/*if (!isset($_SESSION['cpf'])) {
+    header('Location: login.php');
+}*/
+
 $tipos = array("Reclamacao"=>0, "Sugestao"=>1, "Troca"=>2, "Duvida"=>3, "Outro"=>4);
 
 if (isset($_POST['submit']))
@@ -12,6 +18,7 @@ if (isset($_POST['submit']))
         
         $client = new SoapClient($wsdlComp08);
         
+        //$cpf = $_SESSION['cpf'];
         $cpf = "7";     // TODO pegar da sessao
         
         $args = array("chamado" => array( "Descricao"     => $_POST['descricao'],

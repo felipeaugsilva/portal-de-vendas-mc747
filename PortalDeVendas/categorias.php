@@ -11,7 +11,9 @@ if (!isset($_SESSION['cpf'])) {
 
         $client = new SoapClient($wsdlComp03);
         $result = $client->listarCategorias();
-
+        
+        echo "<h2>Categorias</h2>";
+        
         foreach ($result as $categoria) {
             echo "<p><a href=\"produtos_da_categoria.php?categID=".$categoria[0]."\">".$categoria[2]."</a></p>";
         }
