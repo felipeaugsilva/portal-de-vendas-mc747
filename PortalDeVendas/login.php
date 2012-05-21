@@ -6,12 +6,18 @@ if (isset($_POST['submit']))
         include("wsdl.php");
 
         //$client = new SoapClient($wsdlComp07);
+        $client2 = new SoapClient($wsdlComp02);
 
         //$result = $client->NOME_DO_METODO($_POST['txtUser'], $_POST['txtPass']);
 
         //if (sucesso) {
-            session_start("sessao");
-            $_SESSION['cpf'] = $_POST['txtUser'];
+        session_start("sessao");
+            $cpf = $_POST['txtUser'];
+            $_SESSION['cpf'] = $cpf;
+            $result02 = $client2->buscaInformacaoCliente(array("CPF" => strval($cpf), "Campo" => "CEP"));
+            $_SESSION["ceps"] = array();
+            $_SESSION["ceps"]["usuario"] = str_replace("-", "", $result02->return);
+            //echo $_SESSION["ceps"]["usuario"]."<br>";
             header('Location: index.php');
         //} else {
             //echo "<script language='javascript'>alert(\"Autenticacao falhou!\")</script>";

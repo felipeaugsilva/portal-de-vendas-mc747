@@ -17,21 +17,24 @@ try
     else
     {
         $action = $_GET["action"];
-        $cpf = $_SESSION['cpf'];
+        //$cpf = strval($_SESSION['cpf']);
 
-        $client = new SoapClient($wsdlComp02);
+        //$client = new SoapClient($wsdlComp02);
 
-        $args = array("CPF" => $cpf, "Campo" => "");
+        //$args = array("CPF" => $cpf);
 
-        echo "-".$cpf."-<br>";
-        print_r($client->buscaInformacoesCliente($cpf));
+        //echo "-".$cpf."-<br>";
+        //$result = $client->buscaInformacoesCliente($args);
+        //print_r($result);
 
         if($action == "continuar")
         {
-            $cep = "";
-            if(isset($_SESSION["cep"]))
+            foreach($_SESSION["ceps"] as $cep)
             {
-                $cep = $_SESSION["cep"];
+                $client = new SoapClient($wsdlComp09);
+                echo $cep."<br>";
+?>
+<?php
             }
         }
         else if($action == "novo_endereco")
