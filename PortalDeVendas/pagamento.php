@@ -2,9 +2,9 @@
 
 session_start("sessao");
 
-/*if ($_SESSION['cpf'] == NULL) {
+if (is_null($_SESSION['cpf']) || empty($_SESSION['cpf']) || !isset($_SESSION['cpf'])) {
     header('Location: login.php');
-}*/
+}
 
 include("wsdl.php");
 
