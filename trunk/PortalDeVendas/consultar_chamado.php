@@ -52,10 +52,13 @@ try
         <tr>
             <td><b>Alteracoes:</b></td>
             <td><?php
-                foreach ($result->Consultar_ChamadoResult->Alteracoes->Alteracao as $row) {
-                    echo "<b>Data: </b>".$row->Data."<br/>";
-                    echo "<b>Descricao: </b>".$row->Descricao."<br/>";
-                    echo "<b>Id: </b>".$row->Id."<br/><br/>";
+                if (isset($result->Consultar_ChamadoResult->Alteracoes->Alteracao)) {
+                    
+                    foreach ($result->Consultar_ChamadoResult->Alteracoes->Alteracao as $row) {
+                        echo "<b>Data: </b>".$row->Data."<br/>";
+                        echo "<b>Descricao: </b>".$row->Descricao."<br/>";
+                        echo "<b>Id: </b>".$row->Id."<br/><br/>";
+                    }
                 }
             ?></td>
         </tr>
