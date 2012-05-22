@@ -102,9 +102,9 @@ try {
             $_SESSION["prazo"] = $resultComp06->calculaFreteReturn[2];
             $_SESSION["erroFrete"] = $resultComp06->calculaFreteReturn[0];
             $_SESSION["cep"] = $cep;
-            $keys = array_keys($_SESSION["ceps"]);
-            $size = sizeof($keys);
-            $_SESSION["ceps"][$size] = strval($cep);
+            //$keys = array_keys($_SESSION["ceps"]);
+            //$size = sizeof($keys);
+            $_SESSION["ceps"][$cep] = strval($cep);
         }
 
         if(!empty($_SESSION["carrinho"]))
