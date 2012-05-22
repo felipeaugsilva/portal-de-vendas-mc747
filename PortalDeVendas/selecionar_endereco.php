@@ -27,12 +27,19 @@ try
         //$result = $client->buscaInformacoesCliente($args);
         //print_r($result);
 
+        $client = new SoapClient($wsdlComp09);
         if($action == "continuar")
         {
             foreach($_SESSION["ceps"] as $cep)
             {
-                $client = new SoapClient($wsdlComp09);
-                echo $cep."<br>";
+                $result = $client->CepAddress($cep);
+                echo $result->address->logradouro."<br/>";
+                echo $result->address->bairro."<br/>";
+                echo $result->address->localidade."<br/>";
+                echo $result->address->uf."<br/>";
+                echo $result->address->cep."<br/>";
+                echo $result->errors[0]->code."<br/>";
+                echo $result->errors[0]->description."<br/>";
 ?>
 <?php
             }
