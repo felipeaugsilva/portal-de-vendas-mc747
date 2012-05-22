@@ -7,6 +7,6 @@
     $wsdlComp06 = "http://staff01.lab.ic.unicamp.br:8680/c06/services/C06_Logistica?wsdl";
     $wsdlComp07 = "";
     $wsdlComp08 = "http://mc747atendimento.no-ip.org:2121/AtendimentoCliente.AtendimentoCliente.svc?wsdl";
-    $wsdlComp09 = "http://www.criativosilimitada.com.br/jorge/mc747/address-service.php?wsdl";
+    $wsdlComp09 = "http://padovan.org:3000/address_services/wsdl";
     $wsdlComp10 = "http://www.mc747.homologa.isat.com.br/BancoService.svc?wsdl";
 ?>
