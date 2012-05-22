@@ -30,24 +30,47 @@ try
         $client = new SoapClient($wsdlComp09);
         if($action == "continuar")
         {
-            foreach($_SESSION["ceps"] as $cep)
-            {
-                $result = $client->CepAddress($cep);
-                echo $result->address->logradouro."<br/>";
-                echo $result->address->bairro."<br/>";
-                echo $result->address->localidade."<br/>";
-                echo $result->address->uf."<br/>";
-                echo $result->address->cep."<br/>";
-                echo $result->errors[0]->code."<br/>";
-                echo $result->errors[0]->description."<br/>";
-?>
-<?php
-            }
+            //foreach($_SESSION["ceps"] as $cep)
+            //{
+            //    $result = $client->CepAddress($cep);
+            //    echo $result->address->logradouro."<br/>";
+            //    echo $result->address->bairro."<br/>";
+            //    echo $result->address->localidade."<br/>";
+            //    echo $result->address->uf."<br/>";
+            //    echo $result->address->cep."<br/>";
+            //}
         }
         else if($action == "novo_endereco")
         {
 
         }
+?>
+        <form>
+            <table>
+<?php
+        foreach($_SESSION["ceps"] as $cep)
+        {
+            $result = $client->CepAddress($cep);
+?>
+            <tr>
+                <td>
+                <input type="radio" name="endereco" id="endereco" value="<?php echo $result->address->cep?>">
+                </td>
+                <td>
+<?php
+                    echo $result->address->logradouro."<br/>";
+                    echo $result->address->bairro." - ".$result->address->localidade." / ".$result->address->uf."<br/>";
+                    //echo $result->address->uf."."<br/>";
+                    echo $result->address->cep."<br/>";
+?>
+                </td> 
+            <tr>
+<?php
+        }
+?>
+            </table>
+        </form>
+<?php
     }
 
 } 
