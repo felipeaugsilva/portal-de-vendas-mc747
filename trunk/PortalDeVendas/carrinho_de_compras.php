@@ -202,7 +202,7 @@ try {
 ?>
                     <tr>
                         <td>Calcular frete: </td>
-                        <td><input id="cep" name="cep" type="text" maxlength="8"></td>
+                        <td><input id="cep" name="cep" type="text" maxlength="9"></td>
                         <td><input type="submit" id="btnFrete" value="Calcular"></td>
                         <!--<td></td>-->
                     </tr>
