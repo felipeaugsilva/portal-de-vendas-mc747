@@ -23,18 +23,20 @@ try
     $result = $client->Consultar_Chamados_Por_Usuario($args);
     
     echo "<table>";
-    if (is_array($result->Consultar_Chamados_Por_UsuarioResult->ChamadoResumido)) {
-        foreach ($result->Consultar_Chamados_Por_UsuarioResult->ChamadoResumido as $row) {
+    if (isset($result->Consultar_Chamados_Por_UsuarioResult->ChamadoResumido)) {
+        if (is_array($result->Consultar_Chamados_Por_UsuarioResult->ChamadoResumido)) {
+            foreach ($result->Consultar_Chamados_Por_UsuarioResult->ChamadoResumido as $row) {
+                echo "<tr>";
+                echo "<td><a href=\"consultar_chamado.php?idChamado=".$row->Id."\">".$row->Id."</td>";
+                echo "<td>".$row->Descricao."</td>";
+                echo "</tr>";
+            }
+        } else {
             echo "<tr>";
-            echo "<td><a href=\"consultar_chamado.php?idChamado=".$row->Id."\">".$row->Id."</td>";
-            echo "<td>".$row->Descricao."</td>";
+            echo "<td><a href=\"consultar_chamado.php?idChamado=".$result->Consultar_Chamados_Por_UsuarioResult->ChamadoResumido->Id."\">".$result->Consultar_Chamados_Por_UsuarioResult->ChamadoResumido->Id."</td>";
+            echo "<td>".$result->Consultar_Chamados_Por_UsuarioResult->ChamadoResumido->Descricao."</td>";
             echo "</tr>";
         }
-    } else {
-        echo "<tr>";
-        echo "<td><a href=\"consultar_chamado.php?idChamado=".$result->Consultar_Chamados_Por_UsuarioResult->ChamadoResumido->Id."\">".$result->Consultar_Chamados_Por_UsuarioResult->ChamadoResumido->Id."</td>";
-        echo "<td>".$result->Consultar_Chamados_Por_UsuarioResult->ChamadoResumido->Descricao."</td>";
-        echo "</tr>";
     }
     echo "</table>";
     
