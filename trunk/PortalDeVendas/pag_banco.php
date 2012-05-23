@@ -18,13 +18,13 @@ try {
     {
         $bancoEscolhido = $_POST['banco'];
         $opcaoEscolhida = $_POST['opcaoPag'];
-        $valor = "100.00";   // TODO pegar da sessao
+        $valor = $_SESSION["total"];   
         
-        if (!strcmp($opcaoEscolhida, boleto))   // boleto
+        if (!strcmp($opcaoEscolhida, "boleto"))   // boleto
         {
             $resultComp10 = $client->PagarViaBoletoBancario(array ("agencia" => $bancos[$bancoEscolhido], "conta" => 1, "valor" => $valor));
         } 
-        else if (!strcmp($opcaoEscolhida, deposito))  // deposito
+        else if (!strcmp($opcaoEscolhida, "deposito"))  // deposito
         {
             $resultComp10 = $client->PagarViaDepositoBancario(array ("agencia" => $bancos[$bancoEscolhido], "conta" => 1, "valor" => $valor));
         }
@@ -38,20 +38,8 @@ try {
         //if (sucesso) {
             header('Location: compra_finalizada.php');
         //} else {
-            //echo "<script language='javascript'>alert(\"Erro!\")</script>";
+        //    echo "<script language='javascript'>alert(\"Erro!\")</script>";
         //}
-        
-        /*// VerificaStatusPagamento(idPagamento:int)
-        $result = $client->VerificaStatusPagamento(array ("idPagamento" => $idPagamento));
-        
-        echo "<br/>VerificaStatusPagamento(idPagamento:int)<br/>";
-        echo $result->VerificaStatusPagamentoResult."<br/>";
-        
-        // CancelarPagamento(idPagamento:int)
-        $result = $client->CancelarPagamento(array ("idPagamento" => $idPagamento));
-        
-        echo "<br/>CancelarPagamento(idPagamento:int)<br/>";
-        echo $result->CancelarPagamentoResult."<br/>";*/
     }
 
 } catch (Exception $e) {
