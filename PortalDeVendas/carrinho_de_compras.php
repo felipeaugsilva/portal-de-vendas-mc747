@@ -11,7 +11,14 @@ try {
     }
     else
     {
-        $action = $_GET["action"];
+        if(isset($_GET["action"]))
+        {
+            $action = $_GET["action"];
+        }
+        else
+        {
+            $action = "";
+        }
 
         if(isset($_SESSION["frete"]))
         {
@@ -92,6 +99,9 @@ try {
                 $volume = ((float) $volume) + ((float) $produto["volume"]) * intval($produto["qtd"]);
             }
 
+            $_SESSION["volume"] = $volume;
+            $_SESSION["peso"] = $peso;
+
             $args = array("peso" => $peso, 
                 "volume" => $volume,
                 "cep" => $cep,
@@ -150,8 +160,8 @@ try {
             if(isset($_SESSION["frete"]))
             {
                 $frete = round($_SESSION["frete"], 2);
-                $total = $total + $frete;
                 $_SESSION["total"] = $total;
+                $total = $total + $frete;
 ?>
                 <tr>
                     <td></td>
