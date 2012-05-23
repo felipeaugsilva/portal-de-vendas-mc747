@@ -9,6 +9,7 @@ if (is_null($_SESSION['cpf']) || empty($_SESSION['cpf']) || !isset($_SESSION['cp
 }
 
 $tipos = array("Reclamacao", "Sugestao", "Troca", "Duvida", "Outro");
+$tiposStatus = array("Aberto", "Fechado", "Em Andamento", "Cancelado");
 
 try
 {
@@ -54,16 +55,26 @@ try
             <td><?php
                 if (isset($result->Consultar_ChamadoResult->Alteracoes->Alteracao)) {
                     
-                    foreach ($result->Consultar_ChamadoResult->Alteracoes->Alteracao as $row) {
+                    if (is_array($result->Consultar_ChamadoResult->Alteracoes->Alteracao)) {
+                        foreach ($result->Consultar_ChamadoResult->Alteracoes->Alteracao as $row) {
+                            echo "<b>Data: </b>".$row->Data."<br/>";
+                            echo "<b>Descricao: </b>".$row->Descricao."<br/>";
+                            echo "<b>Id: </b>".$row->Id."<br/>";
+                            echo "<b>Status: </b>".$tiposStatus[$row->Status]."<br/><br/>";
+                        }
+                    } else {
+                        $row = $result->Consultar_ChamadoResult->Alteracoes->Alteracao;
                         echo "<b>Data: </b>".$row->Data."<br/>";
                         echo "<b>Descricao: </b>".$row->Descricao."<br/>";
-                        echo "<b>Id: </b>".$row->Id."<br/><br/>";
+                        echo "<b>Id: </b>".$row->Id."<br/>";
+                        echo "<b>Status: </b>".$tiposStatus[$row->Status]."<br/><br/>";
                     }
                 }
             ?></td>
         </tr>
     <table>
     
+    <p><a href="alterar_chamado.php?idChamado=<?php echo $_GET['idChamado']; ?>">Alterar chamado</a></p>
     <p><a href="chamados.php">Consultar outro chamado</a></p>
 
 <?php
