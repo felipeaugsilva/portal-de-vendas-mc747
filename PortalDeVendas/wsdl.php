@@ -5,7 +5,7 @@
     $wsdlComp04 = "http://mc747grupo04.heliohost.org/ProtecaoAoCredito.asmx?WSDL=0";
     $wsdlComp05 = "http://ec2-50-19-145-76.compute-1.amazonaws.com:8080/PagamentoCartao/PagamentoCartao?wsdl";
     $wsdlComp06 = "http://staff01.lab.ic.unicamp.br:8680/c06/services/C06_Logistica?wsdl";
-    $wsdlComp07 = "";
+    $wsdlComp07 = "http://sci-psych.com/mc747/AuthService/public/index/wsdl";
     $wsdlComp08 = "http://mc747atendimento.no-ip.org:2121/AtendimentoCliente.AtendimentoCliente.svc?wsdl";
     $wsdlComp09 = "http://padovan.org:3000/address_services/wsdl";
     $wsdlComp10 = "http://www.mc747.homologa.isat.com.br/BancoService.svc?wsdl";

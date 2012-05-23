@@ -9,24 +9,24 @@ if (isset($_POST['submit']))
     {
         include("wsdl.php");
 
-        //$client = new SoapClient($wsdlComp07);
+        $client = new SoapClient($wsdlComp07);
         $client2 = new SoapClient($wsdlComp02);
 
-        //$result = $client->NOME_DO_METODO($_POST['txtUser'], $_POST['txtPass']);
+        $result = $client->authenticate($_POST['txtUser'], $_POST['txtPass']);
 
-        //if (sucesso) {
-        session_start("sessao");
+        if ($result == "1") {
+            session_start("sessao");
             $cpf = $_POST['txtUser'];
             $_SESSION['cpf'] = $cpf;
-            $result02 = $client2->buscaInformacaoCliente(array("CPF" => strval($cpf), "Campo" => "CEP"));
+            //$result02 = $client2->buscaInformacaoCliente(array("CPF" => strval($cpf), "Campo" => "CEP"));
             $_SESSION["ceps"] = array();
             $cep = $result02->return;
             $_SESSION["ceps"][$cep] = $cep;
             //echo $_SESSION["ceps"]["usuario"]."<br>";
             header('Location: index.php');
-        //} else {
-            //echo "<script language='javascript'>alert(\"Autenticacao falhou!\")</script>";
-        //}
+        } else {
+            echo "<script language='javascript'>alert(\"Autenticacao falhou!\")</script>";
+        }
 
     } catch (Exception $e) {
         echo "Exception: ";
