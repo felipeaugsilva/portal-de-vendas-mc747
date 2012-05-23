@@ -12,9 +12,9 @@ try {
     // componente 04 - credibilidade
     $client = new SoapClient($wsdlComp04);
     //$resultComp04 = $client->consultaCPF(array("CPF" => $_SESSION['cpf']));
-    $resultComp04 = $client->consultaCPF(array("CPF" => "38075650867"));
+    $resultComp04 = $client->consultaCPF(array("CPF" => "82257622820"));
     
-    //print_r($resultComp04->consultaCPFResult);    // TODO: remover ao final
+    //print_r($resultComp04->consultaCPFResult);
     
     $situacao = $resultComp04->consultaCPFResult->situacao;
     $codRetorno = $resultComp04->consultaCPFResult->codigoRetorno;
