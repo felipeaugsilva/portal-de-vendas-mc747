@@ -21,7 +21,7 @@ if (isset($_POST['submit']))
             //$result02 = $client2->buscaInformacaoCliente(array("CPF" => strval($cpf), "Campo" => "CEP"));
             $_SESSION["ceps"] = array();
             $cep = $result02->return;
-            $_SESSION["ceps"][$cep] = $cep;
+            //$_SESSION["ceps"][$cep] = $cep;
             //echo $_SESSION["ceps"]["usuario"]."<br>";
             header('Location: index.php');
         } else {
