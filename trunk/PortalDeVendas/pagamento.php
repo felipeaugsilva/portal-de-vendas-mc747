@@ -14,7 +14,7 @@ try {
     //$resultComp04 = $client->consultaCPF(array("CPF" => $_SESSION['cpf']));
     $resultComp04 = $client->consultaCPF(array("CPF" => "38075650867"));
     
-    print_r($resultComp04->consultaCPFResult);    // TODO: remover ao final
+    //print_r($resultComp04->consultaCPFResult);    // TODO: remover ao final
     
     $situacao = $resultComp04->consultaCPFResult->situacao;
     $codRetorno = $resultComp04->consultaCPFResult->codigoRetorno;
