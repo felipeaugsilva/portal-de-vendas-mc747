@@ -13,13 +13,13 @@ if (isset($_POST['submit']))
     try {
         // componente 05 - cartao de credito
         $client = new SoapClient($wsdlComp05);
-    
+    	/*
         echo $_POST['nome']."<br/>";
         echo $_POST['bandeira']."<br/>";
         echo $_POST['numCartao']."<br/>";
         echo $_POST['validade']."<br/>";
         echo $_POST['codSeg']."<br/>";
-        
+        */
         $args = array ( "ValorDaCompra" => "10",
                         "NomeDoTitular" => $_POST['nome'],
                         "BandeiraDoCartao" => $_POST['bandeira'],
@@ -32,7 +32,7 @@ if (isset($_POST['submit']))
 
         //print_r($resultComp05);
         
-        //header('Location: compra_finalizada.php');
+        header('Location: compra_finalizada.php');
 
     } catch (Exception $e) {
         echo "<b>Exception: </b>";
