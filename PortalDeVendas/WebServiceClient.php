@@ -187,17 +187,18 @@ try {
 	
 	// validaCompra(valorDaCompra:long, nomeDoTitular:string, bandeiraDoCartão:string, numeroDoCartão:string, dataDeValidade:string, codigoDeSeguranca:string, quantidadeDeParcelas:int)
 	$args = array (
-		"ValorDaCompra" => "1000",
+		"ValorDaCompra" => "1",
 		"NomeDoTitular" => "JOAO",
 		"BandeiraDoCartao"=> "Visa",
-		"NumeroDoCartao" => "1234123412341234",
-		"dataDeValidade" => "12/12",
+		"NumeroDoCartao" => "1234.1234.1234.1234",
+		"DataDeValidade" => "12/12",
 		"CodigoDeSeguranca" => "123",
 		"QuantidadeDeParcelas" => "1"
 	);
 	$result = $client->validaCompra($args);
 	
-	print_r($result);
+	echo "<br/>validaCompra(valorDaCompra:long, nomeDoTitular:string, bandeiraDoCartão:string, numeroDoCartão:string, dataDeValidade:string, codigoDeSeguranca:string, quantidadeDeParcelas:int)<br/>";
+	echo $result->return."<br/>";
 	
 	
 	
