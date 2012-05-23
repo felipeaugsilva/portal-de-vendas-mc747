@@ -23,8 +23,8 @@ if (isset($_POST['submit']))
         $args = array ( "ValorDaCompra" => "10",
                         "NomeDoTitular" => $_POST['nome'],
                         "BandeiraDoCartao" => $_POST['bandeira'],
-                        "NumeroDoCartão" => $_POST['numCartao'],
-                        "dataDeValidade" => $_POST['validade'],
+                        "NumeroDoCartao" => $_POST['numCartao'],
+                        "DataDeValidade" => $_POST['validade'],
                         "CodigoDeSeguranca" => $_POST['codSeg'],
                         "QuantidadeDeParcelas" => "1" );
                         
