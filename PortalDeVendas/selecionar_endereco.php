@@ -41,10 +41,7 @@ try
 
             $frete = round($resultComp06->calculaFreteReturn[1], 2);
             $total = $_SESSION["total"];
-            //echo $total."<br>";
-            //echo $frete."<br>";
             $total = $total + $frete;
-            //echo $total."<br>";
             $_SESSION["total"] = $total;
             header('Location: pagamento.php');
 
@@ -73,7 +70,6 @@ try
 <?php
                     echo $result->address->logradouro."<br/>";
                     echo $result->address->bairro." - ".$result->address->localidade." / ".$result->address->uf."<br/>";
-                    //echo $result->address->uf."."<br/>";
                     echo $result->address->cep."<br/>";
 ?>
                 </td> 
@@ -101,13 +97,6 @@ try
                         <input type="submit" id="btnVoltar" value="Voltar">
                     </form>
                 </td>
-<!--
-                <td>
-                    <form id="frmFinalizar" method="post" action="selecionar_endereco.php?action=finalizar">
-                        <input type="submit" id="btnFinalizar" value="Finalizar compra">
-                    </form>
-                </td>
--->
            </tr>
        </table>
 <?php
