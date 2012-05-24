@@ -3,7 +3,7 @@ try {
 	/*
 	Grupo 01 - Registro e Controle de Estoque de Produtos
 	*/
-	/*
+	
 	$client = new SoapClient("http://gerestoque.heliohost.org/Service1.asmx?wsdl=0");
 	
 	// ReturnProductInfo(ID:int)
@@ -27,7 +27,7 @@ try {
 	
 	echo "<br/>SubProduct(ID:int, qtd:int)<br/>";
 	echo $result->SubProductResult."<br/>";
-	*/
+	
 	
 	
 	/*
@@ -68,7 +68,7 @@ try {
 	/*
 	Grupo 03 - Informações Detalhadas de Produtos
 	*/
-	
+	/*
 	$client = new SoapClient("http://sql2.students.ic.unicamp.br/~ra043251/mc747/DetalheProduto.wsdl");
 	
 	// exibeDetalhesID(id:int)
@@ -136,7 +136,7 @@ try {
 		}
 		echo "<br/>";
 	}
-	
+	*/
 	
 	
 	/*
@@ -146,6 +146,13 @@ try {
 	$client = new SoapClient("http://mc747grupo04.heliohost.org/ProtecaoAoCredito.asmx?WSDL=0");
 	
 	// consultaCPF(CPF:string)
+	$result = $client->consultaCPF(array("CPF" => "21375324845"));
+	
+	echo "<br/>consultaCPF(CPF:string)<br/>";
+	echo $result->consultaCPFResult->situacao."<br/>";
+	echo $result->consultaCPFResult->codigoRetorno."<br/>";
+	echo $result->consultaCPFResult->msgRetorno."<br/>";
+
 	$result = $client->consultaCPF(array("CPF" => "21375324845"));
 	
 	echo "<br/>consultaCPF(CPF:string)<br/>";
@@ -261,8 +268,8 @@ try {
 	
 	// authenticateIn(cpf:string, password:string)
 	$args = array (
-		"cpf" => "john",
-		"password" => "reese"
+		"cpf" => "123",
+		"password" => "1234"
 	);
 	$result = $client->authenticate($args);
 	

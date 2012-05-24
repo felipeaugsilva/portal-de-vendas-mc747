@@ -23,23 +23,30 @@ try {
         if (!strcmp($opcaoEscolhida, "boleto"))   // boleto
         {
             $resultComp10 = $client->PagarViaBoletoBancario(array ("agencia" => $bancos[$bancoEscolhido], "conta" => 1, "valor" => $valor));
+	    $result = $resultComp10->PagarViaBoletoBancarioResult;
         } 
         else if (!strcmp($opcaoEscolhida, "deposito"))  // deposito
         {
             $resultComp10 = $client->PagarViaDepositoBancario(array ("agencia" => $bancos[$bancoEscolhido], "conta" => 1, "valor" => $valor));
+	    $result = $resultComp10->PagarViaDepositoBancarioResult;
         }
         else   // transferencia
         {
             $resultComp10 = $client->PagarViaTransferenciaBancaria(array ("agencia" => $bancos[$bancoEscolhido], "conta" => 1, "valor" => $valor));
+	    $result = $resultComp10->PagarViaTransferenciaBancarioResult;
         }
         
         //print_r($resultComp10);
         
-        //if (sucesso) {
+        if ($result) {
+	    $client = new SoapClient($wsdlComp01);
+	    foreach($_SESSION["carrinho"] as $produto) {
+		$resultComp01 = $client->SubProduct(array("ID" => $produto["id"], "qtd" => $produto["qtd"]));
+	    }
             header('Location: compra_finalizada.php');
         //} else {
         //    echo "<script language='javascript'>alert(\"Erro!\")</script>";
-        //}
+        }
     }
 
 } catch (Exception $e) {
