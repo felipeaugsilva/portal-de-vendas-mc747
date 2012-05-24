@@ -99,8 +99,8 @@ try {
                 $volume = ((float) $volume) + ((float) $produto["volume"]) * intval($produto["qtd"]);
             }
 
-            $_SESSION["volume"] = $volume;
-            $_SESSION["peso"] = $peso;
+            $_SESSION["volume"] = $volume; //echo "<br>$volume<br>";
+            $_SESSION["peso"] = $peso; //echo "<br>$peso<br>";
 
             $args = array("peso" => $peso, 
                 "volume" => $volume,
@@ -108,8 +108,8 @@ try {
                 "modo_entrega" => 3);
 
             $resultComp06 = $client->calculaFrete($args);
-            $_SESSION["frete"] = $resultComp06->calculaFreteReturn[1];
-            $_SESSION["prazo"] = $resultComp06->calculaFreteReturn[2];
+            $_SESSION["frete"] = $resultComp06->calculaFreteReturn[1] * 100; //echo "<br>$_SESSION[frete]<br>";
+            $_SESSION["prazo"] = $resultComp06->calculaFreteReturn[2]; //echo "<br>$_SESSION[prazo]<br>";
             $_SESSION["erroFrete"] = $resultComp06->calculaFreteReturn[0];
             $_SESSION["cep"] = $cep;
             //$keys = array_keys($_SESSION["ceps"]);

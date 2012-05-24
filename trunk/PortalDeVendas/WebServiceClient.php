@@ -68,7 +68,7 @@ try {
 	/*
 	Grupo 03 - Informações Detalhadas de Produtos
 	*/
-	/*
+	
 	$client = new SoapClient("http://sql2.students.ic.unicamp.br/~ra043251/mc747/DetalheProduto.wsdl");
 	
 	// exibeDetalhesID(id:int)
@@ -136,7 +136,7 @@ try {
 		}
 		echo "<br/>";
 	}
-	*/
+	
 	
 	
 	/*
@@ -158,7 +158,7 @@ try {
 	/*
 	Grupo 05 - Meios de Pagamento: Cartões de Crédito
 	*/
-	
+	/*
 	$client = new SoapClient("http://ec2-50-19-145-76.compute-1.amazonaws.com:8080/PagamentoCartao/PagamentoCartao?wsdl");
 	
 	// listaCartoes()
@@ -199,7 +199,7 @@ try {
 	
 	echo "<br/>validaCompra(valorDaCompra:long, nomeDoTitular:string, bandeiraDoCartão:string, numeroDoCartão:string, dataDeValidade:string, codigoDeSeguranca:string, quantidadeDeParcelas:int)<br/>";
 	echo $result->return."<br/>";
-	
+	*/
 	
 	
 	/*
