@@ -52,7 +52,7 @@ else {
                 <td><input name="descricao" type="text"></td>
             </tr>
             <tr>
-                <td>Tipo:</td>
+                <td>Status:</td>
                 <td><select name="status">
                     <?php
                     foreach (array_keys($tipos) as $tipo) {

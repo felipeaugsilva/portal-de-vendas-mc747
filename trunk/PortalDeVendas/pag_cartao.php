@@ -31,8 +31,17 @@ if (isset($_POST['submit']))
         $resultComp05 = $client->validaCompra($args);
 
         //print_r($resultComp05);
-        
-        header('Location: compra_finalizada.php');
+
+	if ($resultComp05->return == 1) {
+		$client = new SoapClient($wsdlComp01);
+		foreach($_SESSION["carrinho"] as $produto) {
+			$resultComp01 = $client->SubProduct(array("ID" => $produto["id"], "qtd" => $produto["qtd"]));
+		}
+        	header('Location: compra_finalizada.php');
+	//}
+	//else {
+		//TODO Falha no pagamento
+	}
 
     } catch (Exception $e) {
         echo "<b>Exception: </b>";
