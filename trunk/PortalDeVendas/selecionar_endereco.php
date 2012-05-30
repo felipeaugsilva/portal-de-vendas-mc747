@@ -68,6 +68,7 @@ try
                 </td>
                 <td>
 <?php
+		//print_r($cep);echo "<br>";print_r($result);
                     echo $result->address->logradouro."<br/>";
                     echo $result->address->bairro." - ".$result->address->localidade." / ".$result->address->uf."<br/>";
                     echo $result->address->cep."<br/>";

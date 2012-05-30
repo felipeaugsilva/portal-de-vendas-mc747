@@ -3,7 +3,7 @@ try {
 	/*
 	Grupo 01 - Registro e Controle de Estoque de Produtos
 	*/
-	
+	/*
 	$client = new SoapClient("http://gerestoque.heliohost.org/Service1.asmx?wsdl=0");
 	
 	// ReturnProductInfo(ID:int)
@@ -27,17 +27,17 @@ try {
 	
 	echo "<br/>SubProduct(ID:int, qtd:int)<br/>";
 	echo $result->SubProductResult."<br/>";
-	
+	*/
 	
 	
 	/*
 	Grupo 02 - Informações de Clientes
 	*/
-	/*
+	
 	$client = new SoapClient("http://staff01.lab.ic.unicamp.br:8280/clientesWS/clientes2?wsdl");
 	
 	// buscaInformacoesCliente(CPF:string)
-	$result = $client->buscaInformacoesCliente(array("CPF" => "21375324845"));
+	$result = $client->buscaInformacoesCliente(array("CPF" => "64829252197"));
 	
 	echo "<br/>buscaInformacoesCliente(CPF:string)<br/>";
 	echo $result->return->CPF."<br/>";
@@ -52,17 +52,17 @@ try {
 	echo $result->return->email."<br/>";
 	
 	// buscaInformacaoCliente(CPF:string, campoCliente:string)
-	$result = $client->buscaInformacaoCliente(array("CPF" => "21375324845", "Campo" => "email"));
+	$result = $client->buscaInformacaoCliente(array("CPF" => "64829252197", "Campo" => "email"));
 	
 	echo "<br/>buscaInformacaoCliente(CPF:string, campoCliente:string)<br/>";
 	echo $result->return."<br/>";
 	
 	// buscaPotencialCliente(CPF:string)
-	$result = $client->buscaPotencialCliente(array("CPF" => "21375324845"));
+	$result = $client->buscaPotencialCliente(array("CPF" => "64829252197"));
 
 	echo "<br/>buscaPotencialCliente(CPF:string)<br/>";
 	echo $result->return."<br/>";
-	*/
+	
 	
 	
 	/*
@@ -368,6 +368,64 @@ try {
 	echo $result->address->localidade."<br/>";
 	echo $result->address->uf."<br/>";
 	echo $result->address->cep."<br/>";
+	foreach ($result->errors as $error) {
+		echo $error->code."<br/>";
+		echo $error->description."<br/>";
+	}
+	
+	// SearchAddress(Query:string)
+	$result = $client->SearchAddress("campinas");
+	
+	echo "<br/>SearchAddress(Query:string) - estatico<br/>";
+	echo $result->addresses[0]->logradouro."<br/>";
+	echo $result->addresses[0]->bairro."<br/>";
+	echo $result->addresses[0]->localidade."<br/>";
+	echo $result->addresses[0]->uf."<br/>";
+	echo $result->addresses[0]->cep."<br/>";
+	foreach ($result->errors as $error) {
+		echo $error->code."<br/>";
+		echo $error->description."<br/>";
+	}
+	
+	echo "<br/>SearchAddress(Query:string) - iterativo<br/>";
+	foreach ($result->addresses as $row) {
+		echo $row->logradouro."<br/>";
+		echo $row->bairro."<br/>";
+		echo $row->localidade."<br/>";
+		echo $row->uf."<br/>";
+		echo $row->cep."<br/><br/>";
+	}
+	foreach ($result->errors as $row) {
+		echo $row->code."<br/>";
+		echo $row->description."<br/>";
+	}
+	
+	// VerifyAddress(Logradouro:string, Bairro:string, Localidade:string, Uf:string, Cep:string)
+	$result = $client->VerifyAddress(array("logradouro" => "Rua Antonio Augusto de Almeida", "bairro" => "Cidade Universitaria", "localidade" => "Campinas", "uf" => "SP", "cep" => "13083-755"));
+	
+	echo "<br/>VerifyAddress(Logradouro:string, Bairro:string, Localidade:string, Uf:string, Cep:string)<br/>";
+	echo $result->valid."<br/>";
+	foreach ($result->errors as $row) {
+		echo $row->code."<br/>";
+		echo $row->description."<br/>";
+	}
+	*/
+	
+	/*
+	Grupo 15 - Endereço
+	*/
+	/*
+	$client = new SoapClient("http://www.criativosilimitada.com.br/jorge/mc747/address-service.php?wsdl");
+
+	// EnderecoPorCep(Cep:string)
+	$result = $client->CepAddress("13083-755");
+	
+	echo "<br/>EnderecoPorCep(Cep:string)<br/>";
+	echo $result->address->logradouro."<br/>";
+	echo $result->address->bairro."<br/>";
+	echo $result->address->localidade."<br/>";
+	echo $result->address->uf."<br/>";
+	echo $result->address->cep."<br/>";
 	echo $result->errors[0]->code."<br/>";
 	echo $result->errors[0]->description."<br/>";
 	
@@ -406,7 +464,6 @@ try {
 		echo $row->description."<br/>";
 	}
 	*/
-	
 	
 	/*
 	Grupo 16 - Meio de Pagamento: Banco
