@@ -15,5 +15,6 @@ if (is_null($_SESSION['cpf']) || empty($_SESSION['cpf']) || !isset($_SESSION['cp
     <p><a href="categorias.php">Categorias de produtos</a></p>
     <p><a href="chamados.php">Chamados</a></p>
     <p><a href="consulta_entrega.php">Entregas</a></p>
+    <p><a href="consulta_pagamento.php">Pagamentos</a></p>
 </body>
 </html>
