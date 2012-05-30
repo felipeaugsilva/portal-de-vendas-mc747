@@ -18,11 +18,11 @@ if (isset($_POST['submit']))
             session_start("sessao");
             $cpf = $_POST['txtUser'];
             $_SESSION['cpf'] = $cpf;
-            //$result02 = $client2->buscaInformacaoCliente(array("CPF" => strval($cpf), "Campo" => "CEP"));
+            $result02 = $client2->buscaInformacaoCliente(array("CPF" => strval($cpf), "Campo" => "CEP"));
             $_SESSION["ceps"] = array();
             $cep = $result02->return;
-            //$_SESSION["ceps"][$cep] = $cep;
-            //echo $_SESSION["ceps"]["usuario"]."<br>";
+            $_SESSION["ceps"][$cep] = $cep;
+            //echo $cep."<br>";
             header('Location: index.php');
         } else {
             echo "<script language='javascript'>alert(\"Autenticacao falhou!\")</script>";
