@@ -43,6 +43,7 @@ try {
 	    foreach($_SESSION["carrinho"] as $produto) {
 		$resultComp01 = $client->SubProduct(array("ID" => $produto["id"], "qtd" => $produto["qtd"]));
 	    }
+            unset($_SESSION["carrinho"]);
             header('Location: compra_finalizada.php');
         //} else {
         //    echo "<script language='javascript'>alert(\"Erro!\")</script>";
