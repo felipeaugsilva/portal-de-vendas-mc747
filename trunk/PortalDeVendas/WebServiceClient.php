@@ -33,7 +33,7 @@ try {
 	/*
 	Grupo 02 - Informações de Clientes
 	*/
-	
+	/*
 	$client = new SoapClient("http://staff01.lab.ic.unicamp.br:8280/clientesWS/clientes2?wsdl");
 	
 	// buscaInformacoesCliente(CPF:string)
@@ -62,7 +62,7 @@ try {
 
 	echo "<br/>buscaPotencialCliente(CPF:string)<br/>";
 	echo $result->return."<br/>";
-	
+	*/
 	
 	
 	/*
@@ -410,6 +410,45 @@ try {
 		echo $row->description."<br/>";
 	}
 	*/
+
+
+	/*
+	Grupo 10 - Meio de Pagamento: Banco
+	*/
+	
+	$client = new SoapClient("http://staff01.lab.ic.unicamp.br:8080/pagamento_C10_G10/services/PagamentoBanco?wsdl");
+	
+	// PagarViaDepositoBancario(agencia:int, conta:int, valor:double)
+	$result = $client->PagarViaDepositoBancario(array ("agencia" => 4, "conta" => 4, "valor" => 100.00));
+	
+	echo "<br/>PagarViaDepositoBancario(agencia:int, conta:int, valor:double)<br/>";
+	echo $result->pagarViaDepositoBancarioReturn."<br/>";//idPagamento
+	
+	// PagarViaBoletoBancario(agencia:int, conta:int, valor:double)
+	$result = $client->PagarViaBoletoBancario(array ("agencia" => 4, "conta" => 4, "valor" => 200.00));
+	
+	echo "<br/>PagarViaBoletoBancario(agencia:int, conta:int, valor:double)<br/>";
+	echo $result->pagarViaBoletoBancarioReturn."<br/>";//idPagamento
+	
+	// PagarViaTransferenciaBancaria(agencia:int, conta:int, valor:double)
+	$result = $client->PagarViaTransferenciaBancaria(array ("agencia" => 4, "conta" => 4, "valor" => 300.00));
+	
+	echo "<br/>PagarViaTransferenciaBancaria(agencia:int, conta:int, valor:double)<br/>";
+	echo ($idPagamento = $result->pagarViaTransferenciaBancariaReturn)."<br/>";//idPagamento
+	
+	// VerificaStatusPagamento(idPagamento:int)
+	$result = $client->VerificaStatusPagamento(array ("idPagamento" => $idPagamento));
+	
+	echo "<br/>VerificaStatusPagamento(idPagamento:int)<br/>";
+	echo $result->verificaStatusPagamentoReturn."<br/>";
+	
+	// CancelarPagamento(idPagamento:int)
+	$result = $client->CancelarPagamento(array ("idPagamento" => $idPagamento));
+	
+	echo "<br/>CancelarPagamento(idPagamento:int)<br/>";
+	echo $result->cancelarPagamentoReturn."<br/>";
+	
+
 	
 	/*
 	Grupo 15 - Endereço
