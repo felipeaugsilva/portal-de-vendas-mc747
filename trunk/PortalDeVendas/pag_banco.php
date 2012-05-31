@@ -38,14 +38,34 @@ try {
         
         //print_r($resultComp10);
         
-        if ($result) {
+        if ($result)
+        {
             $_SESSION["idPagamento"] = $result;
+            
             $client = new SoapClient($wsdlComp01);
+            
+            // carrinho
             foreach($_SESSION["carrinho"] as $produto) {
                 $resultComp01 = $client->SubProduct(array("ID" => $produto["id"], "qtd" => $produto["qtd"]));
             }
             unset($_SESSION["carrinho"]);
+            
+            // tranporte
+            $client = new SoapClient($wsdlComp06);
+            
+            $args = array ( "peso" => $_SESSION["peso"],
+                            "volume" => $_SESSION["volume"],
+                            "cep" => $_SESSION["cep"],
+                            "meio" => "1",
+                            "id_NotaFiscal" => "1" );
+                            
+            $resultComp06 = $client->webserviceTransporte($args);
+            
+            $_SESSION["codRastreamento"] = $resultComp06->webserviceTransporteReturn[1];
+            $_SESSION["prazoEntrega"] = $resultComp06->webserviceTransporteReturn[3];
+            
             header('Location: compra_finalizada.php');
+            
         //} else {
         //    echo "<script language='javascript'>alert(\"Erro!\")</script>";
         }
