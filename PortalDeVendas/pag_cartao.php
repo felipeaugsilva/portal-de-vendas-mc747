@@ -32,17 +32,35 @@ if (isset($_POST['submit']))
 
         //print_r($resultComp05);
 
-	if ($resultComp05->return == 1) {
-		$client = new SoapClient($wsdlComp01);
-		foreach($_SESSION["carrinho"] as $produto) {
-			$resultComp01 = $client->SubProduct(array("ID" => $produto["id"], "qtd" => $produto["qtd"]));
-		}
+        if ($resultComp05->return == 1)
+        {
+            $client = new SoapClient($wsdlComp01);
+            
+            // carrinho
+            foreach($_SESSION["carrinho"] as $produto) {
+                $resultComp01 = $client->SubProduct(array("ID" => $produto["id"], "qtd" => $produto["qtd"]));
+            }
             unset($_SESSION["carrinho"]);
-        	header('Location: compra_finalizada.php');
-	//}
-	//else {
-		//TODO Falha no pagamento
-	}
+            
+            // transporte
+            $client = new SoapClient($wsdlComp06);
+            
+            $args = array ( "peso" => $_SESSION["peso"],
+                            "volume" => $_SESSION["volume"],
+                            "cep" => $_SESSION["cep"],
+                            "meio" => "1",
+                            "id_NotaFiscal" => "1" );
+                            
+            $resultComp06 = $client->webserviceTransporte($args);
+            
+            $_SESSION["codRastreamento"] = $resultComp06->webserviceTransporteReturn[1];
+            $_SESSION["prazoEntrega"]    = $resultComp06->webserviceTransporteReturn[3];
+            
+            header('Location: compra_finalizada.php');
+            
+        //} else {
+            //TODO Falha no pagamento
+        }
 
     } catch (Exception $e) {
         echo "<b>Exception: </b>";

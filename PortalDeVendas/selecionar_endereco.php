@@ -43,6 +43,7 @@ try
             $total = $_SESSION["total"];
             $total = $total + $frete;
             $_SESSION["total"] = $total;
+            $_SESSION["cep"] = $cep;
             header('Location: pagamento.php');
 
         }
