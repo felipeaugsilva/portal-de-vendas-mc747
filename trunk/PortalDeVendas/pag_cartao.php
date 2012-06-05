@@ -48,7 +48,7 @@ if (isset($_POST['submit']))
             $args = array ( "peso" => $_SESSION["peso"],
                             "volume" => $_SESSION["volume"],
                             "cep" => $_SESSION["cep"],
-                            "meio" => "1",
+                            "meio" => $_SESSION["modoEntrega"],
                             "id_NotaFiscal" => "1" );
                             
             $resultComp06 = $client->webserviceTransporte($args);

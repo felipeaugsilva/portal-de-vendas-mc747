@@ -24,10 +24,12 @@ try {
     {
         echo "<h2>Pagamento</h2>";
         
+        echo "<p>Valor total: R$".$_SESSION["total"]."</p>";
+        
         echo "<h3>Formas de pagamento disponiveis:</h3>";
         
-	if (strcmp($situacao,"regular") == 0) {
-        	echo "<p><a href=\"pag_cartao.php\">Cartao de Credito</a></p>";
+        if (strcmp($situacao,"regular") == 0) {
+            echo "<p><a href=\"pag_cartao.php\">Cartao de Credito</a></p>";
         }
         
         echo "<p><a href=\"pag_banco.php\">Banco</a></p>";

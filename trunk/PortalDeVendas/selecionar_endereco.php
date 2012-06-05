@@ -28,22 +28,27 @@ try
         if($action == "finalizar")
         {
             $client = new SoapClient($wsdlComp06);
+            
             $volume = $_SESSION["volume"];
             $peso = $_SESSION["peso"];
             $cep = $_POST["endereco"];
+            $modoEntrega = $_POST["modoEntrega"];
 
             $args = array("peso" => $peso,
-                "volume" => $volume,
-                "cep" => $cep,
-                "modo_entrega" => 3);
+                          "volume" => $volume,
+                          "cep" => $cep,
+                          "modo_entrega" => $modoEntrega);
 
             $resultComp06 = $client->calculaFrete($args);
 
             $frete = round($resultComp06->calculaFreteReturn[1], 2);
             $total = $_SESSION["total"];
             $total = $total + $frete;
+            
             $_SESSION["total"] = $total;
             $_SESSION["cep"] = $cep;
+            $_SESSION["modoEntrega"] = $modoEntrega;
+            
             header('Location: pagamento.php');
 
         }
@@ -57,41 +62,50 @@ try
         }
 ?>
         <form id="frmEndereco" name="frmEndereco" method="post" action="selecionar_endereco.php?action=finalizar">
+            <!-- Selecionar endereço -->
+            <h4>Selecione o endereco: </h4>
             <table>
-<?php
-        foreach($_SESSION["ceps"] as $cep)
-        {
-            $result = $client->CepAddress($cep);
-?>
-            <tr>
-                <td>
-                <input type="radio" name="endereco" id="endereco" value="<?php echo $result->address->cep?>">
-                </td>
-                <td>
-<?php
-		//print_r($cep);echo "<br>";print_r($result);
-                    echo $result->address->logradouro."<br/>";
-                    echo $result->address->bairro." - ".$result->address->localidade." / ".$result->address->uf."<br/>";
-                    echo $result->address->cep."<br/>";
-?>
-                </td> 
-            <tr>
-<?php
-        }
-?>
+                <?php
+                    foreach($_SESSION["ceps"] as $cep) {
+                        $result = $client->CepAddress($cep);
+                ?>
+                <tr>
+                    <td>
+                        <input type="radio" name="endereco" id="endereco" value="<?php echo $result->address->cep?>">
+                    </td>
+                    <td>
+                        <?php
+                        //print_r($cep);echo "<br>";print_r($result);
+                        echo $result->address->logradouro."<br/>";
+                        echo $result->address->bairro." - ".$result->address->localidade." / ".$result->address->uf."<br/>";
+                        echo $result->address->cep."<br/>";
+                        ?>
+                    </td> 
+                <tr>
+                <?php } ?>
             </table>
+            
+            <!-- Modo de entrega -->
+            <h4>Selecione o modo de entrega: </h4>
+            <input type="radio" name="modoEntrega" value="1" checked /> Transporte Aereo<br/>
+            <input type="radio" name="modoEntrega" value="2" /> Transporte Rodoviario<br/>
+            <input type="radio" name="modoEntrega" value="3" /> Transp. Rodoviario Prioritario<br/><br/>
+            
             <input type="submit" id="btnFinalizar" value="Finalizar compra">
         </form>
+        
+        <!-- Adicionar novo endereço -->
         <form id="frmNovo" name="frmNovo" method="post" action="selecionar_endereco.php?action=novo_endereco">
-           <table>
+             <table>
                 <tr>
                     <td>Adicionar endereco:</td>
                     <td><input type="text" id="cep" name="cep" maxlength="9">
                     <td><input type="submit" id="btnFrete" name="btnFrete" value="Adicionar"></td>
                 </tr>
-           </table> 
+             </table> 
         </form>
 
+        <!-- Voltar -->
        <table>
            <tr>
                 <td>

@@ -90,6 +90,7 @@ try {
         {
             $client = new SoapClient($wsdlComp06);
             $cep = $_POST["cep"];
+            $modoEntrega = $_POST["modoEntrega"];
 
             $peso = 0;
             $volume = 0;
@@ -103,12 +104,13 @@ try {
             $_SESSION["peso"] = $peso; //echo "<br>$peso<br>";
 
             $args = array("peso" => $peso, 
-                "volume" => $volume,
-                "cep" => $cep,
-                "modo_entrega" => 3);
+                          "volume" => $volume,
+                          "cep" => $cep,
+                          "modo_entrega" => $modoEntrega);
 
             $resultComp06 = $client->calculaFrete($args);
-            $_SESSION["frete"] = $resultComp06->calculaFreteReturn[1] * 100; //echo "<br>$_SESSION[frete]<br>";
+            
+            $_SESSION["frete"] = $resultComp06->calculaFreteReturn[1]; //echo "<br>$_SESSION[frete]<br>";
             $_SESSION["prazo"] = $resultComp06->calculaFreteReturn[2]; //echo "<br>$_SESSION[prazo]<br>";
             $_SESSION["erroFrete"] = $resultComp06->calculaFreteReturn[0];
             $_SESSION["cep"] = $cep;
@@ -215,6 +217,14 @@ try {
                         <td><input id="cep" name="cep" type="text" maxlength="9"></td>
                         <td><input type="submit" id="btnFrete" value="Calcular"></td>
                         <!--<td></td>-->
+                    </tr>
+                    <tr>
+                        <td>Modo de entrega:</td>
+                        <td>
+                            <input type="radio" name="modoEntrega" value="1" checked /> Transporte Aereo<br/>
+                            <input type="radio" name="modoEntrega" value="2" /> Transporte Rodoviario<br/>
+                            <input type="radio" name="modoEntrega" value="3" /> Transp. Rodoviario Prioritario
+                        </td>
                     </tr>
                 </table>
             </form>
