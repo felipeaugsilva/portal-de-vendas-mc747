@@ -27,8 +27,9 @@ try
                 $client = new SoapClient($wsdlComp10);
                 
                 $codigo = $_POST["txtCodigo"];
+                //echo $codigo."<br>";
 
-                $args = array("id_pagamento" => $codigo);
+                $args = array("idPagamento" => $codigo);
 
                 $resultComp06 = $client->VerificaStatusPagamento($args);
 
