@@ -7,7 +7,8 @@ try
     $status_list = array(
         "S05_R01" => "Pagamento pendente",
         "S05_R02" => "Pagamento efetuado",
-        "S05_E01" => "Pagamento nao encontrado");
+        "S05_E01" => "Pagamento nao encontrado",
+        "S06_E01" => "Pagamento nao encontrado na base de dados");
 
     session_start("sessao");
 
