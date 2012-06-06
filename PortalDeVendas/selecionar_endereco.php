@@ -28,9 +28,24 @@ try
         if($action == "finalizar")
         {
             $client = new SoapClient($wsdlComp06);
+<<<<<<< .mine
+            $volume = 0;
+            $peso = 0;
+            $preco = 0;
+            if(isset($_SESSION["carrinho"]))
+            {
+                foreach($_SESSION["carrinho"] as $produto)
+                {
+                    $volume += $produto["volume"] * $produto["qtd"];
+                    $peso += $produto["peso"] * $produto["qtd"];
+                    $preco += $produto["preco"] * $produto["qtd"];
+                }
+            }
+=======
             
             $volume = $_SESSION["volume"];
             $peso = $_SESSION["peso"];
+>>>>>>> .r64
             $cep = $_POST["endereco"];
             $modoEntrega = $_POST["modoEntrega"];
 
@@ -42,8 +57,8 @@ try
             $resultComp06 = $client->calculaFrete($args);
 
             $frete = round($resultComp06->calculaFreteReturn[1], 2);
-            $total = $_SESSION["total"];
-            $total = $total + $frete;
+            
+            $total = $preco + $frete;
             
             $_SESSION["total"] = $total;
             $_SESSION["cep"] = $cep;
