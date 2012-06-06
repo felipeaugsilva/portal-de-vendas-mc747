@@ -107,7 +107,7 @@ else
                                             "<tr>". 
                                             "<td>".
                                             "<input type=\"radio\" name=\"parcelas\" value=\""
-                                            .$qtd_parcelas."\">".$qtd_parcelas." x ".round($valor_parcela,2).
+                                            .$qtd_parcelas."\">".$qtd_parcelas." x ".round($valor_parcela,2)." = ".$total_com_juros.
                                             "</td>".
                                             "</tr>";
                                     }
