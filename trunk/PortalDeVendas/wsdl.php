@@ -9,4 +9,5 @@
     $wsdlComp08 = "http://mc747atendimento.no-ip.org:2121/AtendimentoCliente.AtendimentoCliente.svc?wsdl";
     $wsdlComp09 = "http://padovan.org:3000/address_services/wsdl";
     $wsdlComp10 = "http://www.mc747.homologa.isat.com.br/BancoService.svc?wsdl";
+    //$wsdlComp10 = "http://staff01.lab.ic.unicamp.br:8080/pagamento_C10_G10/services/PagamentoBanco?wsdl";
 ?>

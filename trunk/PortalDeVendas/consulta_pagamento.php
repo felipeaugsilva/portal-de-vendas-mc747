@@ -32,12 +32,12 @@ try
 
                 $args = array("idPagamento" => $codigo);
 
-                $resultComp06 = $client->VerificaStatusPagamento($args);
+                $resultComp10 = $client->VerificaStatusPagamento($args);
 
                 $pedido = $codigo;
-                $status = $status_list[$resultComp06->VerificaStatusPagamentoResult];
+                $status = $status_list[$resultComp10->VerificaStatusPagamentoResult];
 
-                //print_r($resultComp06);
+                //print_r($resultComp10);
             }
         }
     }
