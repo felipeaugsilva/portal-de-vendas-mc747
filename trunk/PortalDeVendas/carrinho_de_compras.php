@@ -191,6 +191,34 @@ try {
                 </tr>
 
             </table>
+            
+<?php
+            // potencial de compra
+            $client02 = new SoapClient($wsdlComp02);
+            
+            $result02 = $client02->buscaPotencialCliente(array("CPF" => $_SESSION['cpf']));
+            $potencialCompra = $result02->return;
+                        
+            if ($potencialCompra == "baixo") {
+                $limite = 1000;
+            } else if ($potencialCompra == "medio") {
+                $limite = 2000;
+            } else if ($potencialCompra == "alto") {
+                $limite = 4000;
+            } else if ($potencialCompra == "muitoAlto") {
+                $limite = -1;
+            }
+            
+            echo "<b>Potencial de compra: </b>".$potencialCompra."<br/>";
+            if ($limite == -1) {
+                echo "<b>Valor maximo de compra:</b> ilimitado<br/>";
+            } else {
+                echo "<b>Valor maximo de compra:</b> R$".$limite."<br/>";
+            }
+            
+            if ($limite == -1 || $total <= $limite) {
+                echo "<h3>Compra liberada</h3>";
+?>
 
             <form id="frmFrete" method="post" action="carrinho_de_compras.php?action=frete">
                 <table>
@@ -252,11 +280,26 @@ try {
                 </tr>
             </table>
 <?php
+            } else {
+                echo "<h3>Compra excedeu maximo permitido</h3>";
+                echo "<p>Atualize a quantidade ou escolha outros produtos</p>";
+                echo "<a href=\"categorias.php\">Ir para categorias de produtos</a>";
+            }
         }
         else
         {
 ?>
-            Carrinho vazio
+            <h3>Carrinho vazio</h3>
+            
+            <table>
+                <tr>
+                    <td>
+                        <form id="frmContinuar" method="post" action="categorias.php">
+                            <input id="btnContinuar" type="submit" value="Continuar comprando">
+                        </form>
+                    </td>
+                </tr>
+            </table>
 <?php
         }
     }
