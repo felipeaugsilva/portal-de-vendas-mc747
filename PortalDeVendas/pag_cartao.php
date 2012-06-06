@@ -16,7 +16,7 @@ if (isset($_POST['submit']))
         $client = new SoapClient($wsdlComp05);
         
         $qtd_parcelas = $_POST["parcelas"];
-        echo $qtd_parcelas."<br>";
+        //echo $qtd_parcelas."<br>";
                 
         $args = array ( "ValorDaCompra" => "10",
                         "NomeDoTitular" => $_POST['nome'],
@@ -55,9 +55,6 @@ if (isset($_POST['submit']))
             $_SESSION["prazoEntrega"]    = $resultComp06->webserviceTransporteReturn[3];
             
             header('Location: compra_finalizada.php');
-            
-        //} else {
-            //TODO Falha no pagamento
         
 
     } catch (Exception $e) {

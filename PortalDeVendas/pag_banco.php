@@ -33,7 +33,7 @@ try {
         else   // transferencia
         {
             $resultComp10 = $client->PagarViaTransferenciaBancaria(array ("agencia" => $bancos[$bancoEscolhido], "conta" => 1, "valor" => $valor));
-            $result = $resultComp10->PagarViaTransferenciaBancarioResult;
+            $result = $resultComp10->PagarViaTransferenciaBancariaResult;
         }
         
         //print_r($resultComp10);
