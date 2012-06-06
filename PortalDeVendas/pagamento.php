@@ -11,8 +11,8 @@ include("wsdl.php");
 try {
     // componente 04 - credibilidade
     $client = new SoapClient($wsdlComp04);
-    //$resultComp04 = $client->consultaCPF(array("CPF" => $_SESSION['cpf']));
-    $resultComp04 = $client->consultaCPF(array("CPF" => "44838124325"));
+    $resultComp04 = $client->consultaCPF(array("CPF" => $_SESSION['cpf']));
+    //$resultComp04 = $client->consultaCPF(array("CPF" => "44838124325"));
     
     //print_r($resultComp04->consultaCPFResult);
     

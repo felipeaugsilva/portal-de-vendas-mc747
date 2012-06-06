@@ -415,7 +415,7 @@ try {
 	/*
 	Grupo 10 - Meio de Pagamento: Banco
 	*/
-/*	
+	/*
 	$client = new SoapClient("http://staff01.lab.ic.unicamp.br:8080/pagamento_C10_G10/services/PagamentoBanco?wsdl");
 	
 	// PagarViaDepositoBancario(agencia:int, conta:int, valor:double)
@@ -447,7 +447,84 @@ try {
 	
 	echo "<br/>CancelarPagamento(idPagamento:int)<br/>";
 	echo $result->cancelarPagamentoReturn."<br/>";
- */	
+	*/
+
+
+	/*
+	Grupo 14 - Atendimento ao Cliente
+	*/
+	/*
+	$client = new SoapClient("http://mc747-1s2012.herokuapp.com/atendimento/wsdl");
+	
+	// Abrir_Chamado(Descricao:string, IdCliente:guid, IdPedido:string, IdProduto:string, IdSolicitante:string, TipoChamado:unsignedByte)
+	$args = array ( "chamado" => array (
+		"descricao"		=> "Teste Grupo 04",
+		"IdCliente"		=> "00000000-0000-0000-0000-000000000004",
+		"IdPedido"		=> "1",
+		"IdProduto"		=> "1",
+		"IdSolicitante"		=> "1",
+		"TipoChamado"		=> '1'
+	));
+	$result = $client->abrir_chamado($args);
+
+	echo "<br/>Abrir_Chamado(Descricao:string, IdCliente:guid, IdPedido:string, IdProduto:string, IdSolicitante:string, TipoChamado:unsignedByte)<br/>";
+	echo $result->Abrir_ChamadoResult->Data."<br/>";
+	echo $result->Abrir_ChamadoResult->Id."<br/>";
+	
+	// Consultar_Chamado(idCliente:guid, idChamado:guid)
+	$args = array (
+		"idCliente" => "00000000-0000-0000-0000-000000000004",
+		"idChamado" => "1d5cebf3-35f8-4559-a990-fbc244a6bda1"
+	);
+	$result = $client->Consultar_Chamado($args);
+
+	echo "<br/>Consultar_Chamado(idCliente:guid, idChamado:guid)<br/>";
+	echo $result->Consultar_ChamadoResult->Data."<br/>";
+	echo $result->Consultar_ChamadoResult->Descricao."<br/>";
+	echo $result->Consultar_ChamadoResult->Id."<br/>";
+	echo $result->Consultar_ChamadoResult->IdCliente."<br/>";
+	echo $result->Consultar_ChamadoResult->IdPedido."<br/>";
+	echo $result->Consultar_ChamadoResult->IdProduto."<br/>";
+	echo $result->Consultar_ChamadoResult->IdSolicitante."<br/>";
+	echo $result->Consultar_ChamadoResult->TipoChamado."<br/>";
+	foreach ($result->Consultar_ChamadoResult->Alteracoes->Alteracao as $row) {
+		echo $row->Data."<br/>";
+		echo $row->Descricao."<br/>";
+		echo $row->Id."<br/>";
+		echo $row->Status."<br/>";
+	}
+	
+	// Alterar_Chamado(Descricao:string, IdChamado:guid, IdCliente:guid, Status:unsignedByte)
+	$args = array ( "alteracao" => array (
+		"Descricao" => "Teste Grupo 04 - Alteracao",
+		"IdChamado" => "1d5cebf3-35f8-4559-a990-fbc244a6bda1",
+		"IdCliente" => "00000000-0000-0000-0000-000000000004",
+		"Status"	=> '0'
+	));
+	$result = $client->Alterar_Chamado($args);
+
+	echo "<br/>Alterar_Chamado(Descricao:string, IdChamado:guid, IdCliente:guid, Status:unsignedByte)<br/>";
+	echo $result->Alterar_ChamadoResult."<br/>";
+	
+	// Consultar_Chamados_Por_Usuario(idCliente:guid, idUsuario:string, tipoChamado:unsignedByte)
+	$args = array (
+		"idCliente" 	=> "00000000-0000-0000-0000-000000000004",
+		"idUsuario" 	=> "1",
+		"tipoChamado"	=> '1'
+	);
+	$result = $client->Consultar_Chamados_Por_Usuario($args);
+
+	echo "<br/>Consultar_Chamados_Por_Usuario(idCliente:guid, idUsuario:string, tipoChamado:unsignedByte)<br/>";
+	foreach ($result->Consultar_Chamados_Por_UsuarioResult->ChamadoResumido as $row) {
+		echo $row->Data."<br/>";
+		echo $row->Descricao."<br/>";
+		echo $row->Id."<br/>";
+		echo $row->IdCliente."<br/>";
+		echo $row->IdSolicitante."<br/>";
+		echo $row->TipoChamado."<br/>";
+		echo $row->UltimoStatus."<br/>";
+	}
+	*/
 
 	
 	/*
@@ -455,7 +532,7 @@ try {
 	*/
 	/*
 	$client = new SoapClient("http://www.criativosilimitada.com.br/jorge/mc747/address-service.php?wsdl");
-
+	
 	// EnderecoPorCep(Cep:string)
 	$result = $client->CepAddress("13083-755");
 	
