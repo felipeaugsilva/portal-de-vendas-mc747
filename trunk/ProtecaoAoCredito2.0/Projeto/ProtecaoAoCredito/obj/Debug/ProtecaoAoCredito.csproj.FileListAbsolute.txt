@@ -1,0 +1,15 @@
+H:\vs\projects2\ProtecaoAoCredito\ProtecaoAoCredito\bin\ProtecaoAoCredito.dll
+H:\vs\projects2\ProtecaoAoCredito\ProtecaoAoCredito\bin\ProtecaoAoCredito.pdb
+H:\vs\projects2\ProtecaoAoCredito\ProtecaoAoCredito\obj\Debug\ResolveAssemblyReference.cache
+H:\vs\projects2\ProtecaoAoCredito\ProtecaoAoCredito\obj\Debug\ProtecaoAoCredito.dll
+H:\vs\projects2\ProtecaoAoCredito\ProtecaoAoCredito\obj\Debug\ProtecaoAoCredito.pdb
+C:\Users\ra096993\Desktop\portal-de-vendas-mc747\ProtecaoAoCredito\Projeto\ProtecaoAoCredito\bin\ProtecaoAoCredito.dll
+C:\Users\ra096993\Desktop\portal-de-vendas-mc747\ProtecaoAoCredito\Projeto\ProtecaoAoCredito\bin\ProtecaoAoCredito.pdb
+C:\Users\ra096993\Desktop\portal-de-vendas-mc747\ProtecaoAoCredito\Projeto\ProtecaoAoCredito\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\ra096993\Desktop\portal-de-vendas-mc747\ProtecaoAoCredito\Projeto\ProtecaoAoCredito\obj\Debug\ProtecaoAoCredito.dll
+C:\Users\ra096993\Desktop\portal-de-vendas-mc747\ProtecaoAoCredito\Projeto\ProtecaoAoCredito\obj\Debug\ProtecaoAoCredito.pdb
+C:\Users\ra096993\Desktop\Projeto\ProtecaoAoCredito\bin\ProtecaoAoCredito.dll
+C:\Users\ra096993\Desktop\Projeto\ProtecaoAoCredito\bin\ProtecaoAoCredito.pdb
+C:\Users\ra096993\Desktop\Projeto\ProtecaoAoCredito\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\ra096993\Desktop\Projeto\ProtecaoAoCredito\obj\Debug\ProtecaoAoCredito.dll
+C:\Users\ra096993\Desktop\Projeto\ProtecaoAoCredito\obj\Debug\ProtecaoAoCredito.pdb
