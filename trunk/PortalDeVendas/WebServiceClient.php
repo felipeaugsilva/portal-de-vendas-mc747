@@ -165,7 +165,7 @@ try {
 	/*
 	Grupo 05 - Meios de Pagamento: Cartões de Crédito
 	*/
-	
+	/*
 	$client = new SoapClient("http://ec2-50-19-145-76.compute-1.amazonaws.com:8080/PagamentoCartao/PagamentoCartao?wsdl");
 	
 	// listaCartoes()
@@ -206,7 +206,7 @@ try {
 	
 	echo "<br/>validaCompra(valorDaCompra:long, nomeDoTitular:string, bandeiraDoCartão:string, numeroDoCartão:string, dataDeValidade:string, codigoDeSeguranca:string, quantidadeDeParcelas:int)<br/>";
 	echo $result->return."<br/>";
-	
+	*/
 	
 	
 	/*
@@ -584,7 +584,7 @@ try {
 	/*
 	Grupo 16 - Meio de Pagamento: Banco
 	*/
-	/*
+	
 	$client = new SoapClient("http://www.mc747.homologa.isat.com.br/BancoService.svc?wsdl");
 
 	// PagarViaDepositoBancario(agencia:int, conta:int, valor:double)
@@ -616,7 +616,7 @@ try {
 	
 	echo "<br/>CancelarPagamento(idPagamento:int)<br/>";
 	echo $result->CancelarPagamentoResult."<br/>";
-	*/
+	
 
 } catch (Exception $e) {
 	echo "Exception: ";
