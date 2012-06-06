@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="C:\Users\ra096993\Desktop\publish" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="bin/ProtecaoAoCredito.dll" publishTime="05/31/2012 20:56:29" />
+    <file relUrl="bin/ProtecaoAoCredito.pdb" publishTime="05/31/2012 20:56:29" />
+    <file relUrl="ProtecaoAoCredito.asmx" publishTime="05/21/2012 20:49:49" />
+    <file relUrl="Web.config" publishTime="05/24/2012 20:18:10" />
+  </publishProfile>
+</publishData>
