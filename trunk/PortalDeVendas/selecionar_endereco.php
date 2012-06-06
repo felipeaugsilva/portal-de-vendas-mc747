@@ -28,7 +28,6 @@ try
         if($action == "finalizar")
         {
             $client = new SoapClient($wsdlComp06);
-<<<<<<< .mine
             $volume = 0;
             $peso = 0;
             $preco = 0;
@@ -41,11 +40,9 @@ try
                     $preco += $produto["preco"] * $produto["qtd"];
                 }
             }
-=======
             
             $volume = $_SESSION["volume"];
             $peso = $_SESSION["peso"];
->>>>>>> .r64
             $cep = $_POST["endereco"];
             $modoEntrega = $_POST["modoEntrega"];
 

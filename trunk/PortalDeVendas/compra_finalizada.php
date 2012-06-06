@@ -19,7 +19,7 @@
     unset($_SESSION["codRastreamento"]);
 
     // prazo de enrtega
-    echo "<p><b>Prazo entrega: </b>".$_SESSION["prazoEntrega"]." dia(s)</p>";
+    echo "<p><b>Prazo entrega: </b>".intval($_SESSION["prazoEntrega"])." dia(s)</p>";
     unset($_SESSION["prazoEntrega"]);
 
     echo "<p><a href=\"index.php\">Voltar para Home Page</a></p>";
