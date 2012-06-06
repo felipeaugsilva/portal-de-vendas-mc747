@@ -41,8 +41,8 @@ try
                 }
             }
             
-            $volume = $_SESSION["volume"];
-            $peso = $_SESSION["peso"];
+            $_SESSION["volume"] = $volume;
+            $_SESSION["peso"] = $peso;
             $cep = $_POST["endereco"];
             $modoEntrega = $_POST["modoEntrega"];
 
@@ -56,11 +56,12 @@ try
             $frete = round($resultComp06->calculaFreteReturn[1], 2);
             
             $total = $preco + $frete;
+            echo $total."<br>";
             
             $_SESSION["total"] = $total;
             $_SESSION["cep"] = $cep;
             $_SESSION["modoEntrega"] = $modoEntrega;
-            
+
             header('Location: pagamento.php');
 
         }
