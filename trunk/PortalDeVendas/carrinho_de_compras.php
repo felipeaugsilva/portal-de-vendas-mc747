@@ -76,9 +76,16 @@ try {
             $prodID = $_GET["prodID"];
             $qtd = $_POST["qtd".$prodID];
 
+            $client = new SoapClient($wsdlComp01);
+            $resultComp01 = $client->ReturnProductInfo(array("ID" => "$prodID"));
+            $qtd_estoque = $resultComp01->ReturnProductInfoResult->Quantity;
+
             if(intval($qtd) > 0)
             {
-                $_SESSION["carrinho"][$prodID]["qtd"] = $qtd;
+                if($qtd <= $qtd_estoque)
+                {
+                    $_SESSION["carrinho"][$prodID]["qtd"] = $qtd;
+                }
             }
             else
             {
