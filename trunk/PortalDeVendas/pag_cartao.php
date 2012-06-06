@@ -8,18 +8,16 @@ if (is_null($_SESSION['cpf']) || empty($_SESSION['cpf']) || !isset($_SESSION['cp
 
 include("wsdl.php");
 
+$total = $_SESSION["total"];
 if (isset($_POST['submit']))
 {
     try {
         // componente 05 - cartao de credito
         $client = new SoapClient($wsdlComp05);
-    	/*
-        echo $_POST['nome']."<br/>";
-        echo $_POST['bandeira']."<br/>";
-        echo $_POST['numCartao']."<br/>";
-        echo $_POST['validade']."<br/>";
-        echo $_POST['codSeg']."<br/>";
-        */
+        
+        $qtd_parcelas = $_POST["parcelas"];
+        echo $qtd_parcelas."<br>";
+                
         $args = array ( "ValorDaCompra" => "10",
                         "NomeDoTitular" => $_POST['nome'],
                         "BandeiraDoCartao" => $_POST['bandeira'],
@@ -30,8 +28,6 @@ if (isset($_POST['submit']))
                         
         $resultComp05 = $client->validaCompra($args);
 
-        //print_r($resultComp05);
-
         if ($resultComp05->return == 1)
         {
             $client = new SoapClient($wsdlComp01);
@@ -41,6 +37,8 @@ if (isset($_POST['submit']))
                 $resultComp01 = $client->SubProduct(array("ID" => $produto["id"], "qtd" => $produto["qtd"]));
             }
             unset($_SESSION["carrinho"]);
+        	header('Location: compra_finalizada.php');
+	    }
             
             // transporte
             $client = new SoapClient($wsdlComp06);
@@ -60,7 +58,7 @@ if (isset($_POST['submit']))
             
         //} else {
             //TODO Falha no pagamento
-        }
+        
 
     } catch (Exception $e) {
         echo "<b>Exception: </b>";
@@ -76,6 +74,70 @@ else
         $client = new SoapClient($wsdlComp05);
         $resultComp05 = $client->listaCartoes();
         
+        if(isset($_GET["action"]))
+        {
+            $action = $_GET["action"];
+            if($action == "calcula_bandeira")
+            {
+                $bandeira = $_POST["bandeira"];
+                $total = $_SESSION["total"];
+                $imprime_bandeira = true;
+                $parcela_html = "";
+                
+                foreach ($resultComp05->return as $return) {
+                    $current_bandeira = $return->bandeira;
+                    //print_r($resultComp05);
+                    if($bandeira == $current_bandeira)
+                    {
+                        $parcela_html = "<tr style=\"display: none;\"><td><input type=\"hidden\" name=\"bandeira\" id=\"bandeira\" value=\"$bandeira\"></td></tr>";
+  //                      foreach ($resultComp05->return as $return) {
+                            if (is_array($return->juros)) 
+                            {
+			                    foreach ($return->juros as $row) 
+			                    {
+			                        $qtd_parcelas = $row->numero;
+			                        $juros = $row->juros;
+                                    if($qtd_parcelas > 0)
+                                    {
+
+                                        $total_com_juros = $total + $total * $juros;
+                                        $valor_parcela = $total_com_juros / $qtd_parcelas;
+                                        $parcela_html = 
+                                            $parcela_html. 
+                                            "<tr>". 
+                                            "<td>".
+                                            "<input type=\"radio\" name=\"parcelas\" value=\""
+                                            .$qtd_parcelas."\">".$qtd_parcelas." x ".round($valor_parcela,2).
+                                            "</td>".
+                                            "</tr>";
+                                    }
+                                }
+                            }
+                            else 
+                            {
+                                $qtd_parcelas = $return->juros->numero;
+                                $juros = $return->juros->juros;
+                                if($qtd_parcelas > 0)
+                                {
+
+                                    $total_com_juros = $total + $total * $juros;
+                                    $valor_parcela = $total_com_juros / $qtd_parcelas;
+                                    $parcela_html = 
+                                        $parcela_html. 
+                                        "<tr>". 
+                                        "<td>".
+                                        "<input type=\"radio\" name=\"parcelas\" value=\""
+                                            .$qtd_parcelas."\">".$qtd_parcelas." x ".round($valor_parcela,2).
+                                        "</td>".
+                                        "</tr>";
+                                }
+                            }
+                        //                        }
+                    }
+                }
+            }
+        }
+
     } catch (Exception $e) {
         echo "Exception: ";
         echo $e->getMessage();
@@ -83,23 +145,52 @@ else
 ?>
 
 <html>
+<head>
+
+</head>
 <body>
     <h2>Forma de pagamento: Cartao de Credito</h2>
+
+    <form id="frmBandeira" name="frmBandeira" method="post" action="pag_cartao.php?action=calcula_bandeira">
+        <table>
+            <tr>
+               <td>Cartao:</td>
+               <td>
+                <select name="bandeira" onchange="javascript: this.form.submit();" onkeyup="javascript: this.form.submit();">
+<?php
+    if(!isset($bandeira))
+    {
+        echo "<option>Selecionar</option>";
+    }
+    foreach ($resultComp05->return as $return) 
+    {
+        if(!isset($bandeira))   
+        {
+            echo "<option value=\"".$return->bandeira."\">".$return->bandeira."</option>";
+        }
+        else
+        {
+            if($bandeira == $return->bandeira)
+            {
+                echo "<option value=\"".$return->bandeira."\" selected>".$return->bandeira."</option>";
+            }
+            else
+            {
+                echo "<option value=\"".$return->bandeira."\">".$return->bandeira."</option>";
+            }
+        }
+    }
+?>
+               </select>
+               </td>
+           </tr>
+        </table>
+    </form>
     <form name="formCartao" action="" method="post">
         <table>
             <tr>
                 <td>Nome do titular:</td>
                 <td><input name="nome" type="text"></td>
-            </tr>
-            <tr>
-                <td>Cartao:</td>
-                <td><select name="bandeira">
-                    <?php
-                    foreach ($resultComp05->return as $return) {
-                        echo "<option>".$return->bandeira."</option>";
-                    }
-                    ?>
-                </select></td>
             </tr>
             <tr>
                 <td>Numero do cartao:</td>
@@ -116,9 +207,27 @@ else
                 <td><input name="codSeg" type="text"></td>
             </tr>
             <tr>
-                <td><input type="submit" name="submit" value="Enviar"></td>
+                <td>Valor total:</td>
+                <td>
+                    R$ <?php echo $_SESSION["total"]; ?>
+                </td>
             </tr>
         <table>
+
+        <table id="pagamento" name="pagamento">
+<?php 
+    if(isset($imprime_bandeira))
+    {
+        if($imprime_bandeira == true)
+        {
+            echo $parcela_html;
+        }
+    }
+?>
+            <tr>
+                <td><input type="submit" name="submit" value="Enviar"></td>
+            </tr>
+        </table>
     </form>
 </body>
 </html>
