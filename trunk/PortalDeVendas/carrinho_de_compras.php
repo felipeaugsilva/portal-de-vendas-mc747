@@ -87,6 +87,10 @@ try {
                 {
                     $_SESSION["carrinho"][$prodID]["qtd"] = $qtd;
                 }
+                else
+                {
+                    $_SESSION["carrinho"][$prodID]["qtd"] = $qtd_estoque;
+                }
             }
             else
             {
