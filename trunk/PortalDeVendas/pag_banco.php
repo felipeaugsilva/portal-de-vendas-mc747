@@ -63,7 +63,10 @@ try {
             
             $_SESSION["codRastreamento"] = $resultComp06->webserviceTransporteReturn[1];
             $_SESSION["prazoEntrega"] = $resultComp06->webserviceTransporteReturn[3];
-            
+
+            //echo $_SESSION["codRastreamento"]."<br>";
+            //echo $_SESSION["prazoEntrega"]."<br>";
+
             header('Location: compra_finalizada.php');
             
         //} else {

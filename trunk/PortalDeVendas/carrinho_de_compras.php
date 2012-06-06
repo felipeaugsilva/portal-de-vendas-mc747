@@ -4,6 +4,7 @@ try {
     include("wsdl.php");
 
     session_start("sessao");
+    $cep = "";
 
     if (is_null($_SESSION['cpf']) || empty($_SESSION['cpf']) || !isset($_SESSION['cpf']))
     {
@@ -221,7 +222,7 @@ try {
 ?>
                     <tr>
                         <td>Calcular frete: </td>
-                        <td><input id="cep" name="cep" type="text" maxlength="9"></td>
+                        <td><input id="cep" name="cep" type="text" value="<?php echo $cep;?>" maxlength="9"></td>
                         <td><input type="submit" id="btnFrete" value="Calcular"></td>
                         <!--<td></td>-->
                     </tr>
