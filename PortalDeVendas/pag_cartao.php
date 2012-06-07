@@ -15,7 +15,7 @@ if (isset($_POST['submit']))
         // componente 05 - cartao de credito
         $client = new SoapClient($wsdlComp05);
         
-        $qtd_parcelas = $_POST["parcelas"];
+        $qtd_parcelas = $_REQUEST["parcelas"];
         echo "Total: ".$_SESSION["total"]."<br>";
         echo "Parcelas: ".$qtd_parcelas."<br>";
                 
@@ -127,8 +127,7 @@ else
                                         $parcela_html. 
                                         "<tr>". 
                                         "<td>".
-                                        "<input type=\"radio\" name=\"parcelas\" value=\""
-                                            .$qtd_parcelas."\">".$qtd_parcelas." x ".round($valor_parcela,2).
+                                        "<input type='radio' name='parcelas' value='".$qtd_parcelas."'>".$qtd_parcelas." x ".round($valor_parcela,2).
                                         "</td>".
                                         "</tr>";
                                 }
