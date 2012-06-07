@@ -18,7 +18,7 @@ if (isset($_POST['submit']))
         $qtd_parcelas = $_POST["parcelas"];
         //echo $qtd_parcelas."<br>";
                 
-        $args = array ( "ValorDaCompra" => $_SESSION["total"],
+        $args = array ( "ValorDaCompra" => $_SESSION["total"] * 100,
                         "NomeDoTitular" => $_POST['nome'],
                         "BandeiraDoCartao" => $_POST['bandeira'],
                         "NumeroDoCartao" => $_POST['numCartao'],
