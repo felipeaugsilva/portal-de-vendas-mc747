@@ -38,8 +38,7 @@ if (isset($_POST['submit']))
                 $resultComp01 = $client->SubProduct(array("ID" => $produto["id"], "qtd" => $produto["qtd"]));
             }
             unset($_SESSION["carrinho"]);
-        	header('Location: compra_finalizada.php');
-	    }
+        	//header('Location: compra_finalizada.php');
             
             // transporte
             $client = new SoapClient($wsdlComp06);
@@ -56,7 +55,10 @@ if (isset($_POST['submit']))
             $_SESSION["prazoEntrega"]    = $resultComp06->webserviceTransporteReturn[3];
             
             header('Location: compra_finalizada.php');
-        
+        }
+        else {
+        	throw new Exception("Pagamento não foi aprovado");
+        }
 
     } catch (Exception $e) {
         echo "<b>Exception: </b>";
