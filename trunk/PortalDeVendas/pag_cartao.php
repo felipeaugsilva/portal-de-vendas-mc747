@@ -16,7 +16,8 @@ if (isset($_POST['submit']))
         $client = new SoapClient($wsdlComp05);
         
         $qtd_parcelas = $_POST["parcelas"];
-        //echo $qtd_parcelas."<br>";
+        echo "Total: ".$_SESSION["total"]."<br>";
+        echo "Parcelas: ".$qtd_parcelas."<br>";
                 
         $args = array ( "ValorDaCompra" => $_SESSION["total"] * 100,
                         "NomeDoTitular" => $_POST['nome'],
