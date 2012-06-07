@@ -18,13 +18,13 @@ if (isset($_POST['submit']))
         $qtd_parcelas = $_POST["parcelas"];
         //echo $qtd_parcelas."<br>";
                 
-        $args = array ( "ValorDaCompra" => "10",
+        $args = array ( "ValorDaCompra" => $_SESSION["total"],
                         "NomeDoTitular" => $_POST['nome'],
                         "BandeiraDoCartao" => $_POST['bandeira'],
                         "NumeroDoCartao" => $_POST['numCartao'],
                         "DataDeValidade" => $_POST['validade'],
                         "CodigoDeSeguranca" => $_POST['codSeg'],
-                        "QuantidadeDeParcelas" => "1" );
+                        "QuantidadeDeParcelas" => $qtd_parcelas);
                         
         $resultComp05 = $client->validaCompra($args);
 
@@ -119,6 +119,7 @@ else
 
                                     $total_com_juros = $total + $total * $juros;
                                     $valor_parcela = $total_com_juros / $qtd_parcelas;
+                                    $_SESSION["valorParcela"] = $valor_parcela;
                                     $parcela_html = 
                                         $parcela_html. 
                                         "<tr>". 
