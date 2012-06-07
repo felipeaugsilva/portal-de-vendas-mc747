@@ -165,7 +165,7 @@ try {
 	/*
 	Grupo 05 - Meios de Pagamento: Cartões de Crédito
 	*/
-	/*
+	
 	$client = new SoapClient("http://ec2-50-19-145-76.compute-1.amazonaws.com:8080/PagamentoCartao/PagamentoCartao?wsdl");
 	
 	// listaCartoes()
@@ -194,19 +194,28 @@ try {
 	
 	// validaCompra(valorDaCompra:long, nomeDoTitular:string, bandeiraDoCartão:string, numeroDoCartão:string, dataDeValidade:string, codigoDeSeguranca:string, quantidadeDeParcelas:int)
 	$args = array (
-		"ValorDaCompra" => "1",
-		"NomeDoTitular" => "JOAO",
-		"BandeiraDoCartao"=> "Visa",
-		"NumeroDoCartao" => "1234.1234.1234.1234",
+		"ValorDaCompra" => "1000",
+		"NomeDoTitular" => "HADLEY DIXON",
+		"BandeiraDoCartao"=> "MasterCard",
+		"NumeroDoCartao" => "1111.1111.1111.1404",
 		"DataDeValidade" => "12/12",
-		"CodigoDeSeguranca" => "123",
-		"QuantidadeDeParcelas" => "1"
+		"CodigoDeSeguranca" => "404",
+		"QuantidadeDeParcelas" => "2"
 	);
 	$result = $client->validaCompra($args);
 	
 	echo "<br/>validaCompra(valorDaCompra:long, nomeDoTitular:string, bandeiraDoCartão:string, numeroDoCartão:string, dataDeValidade:string, codigoDeSeguranca:string, quantidadeDeParcelas:int)<br/>";
 	echo $result->return."<br/>";
-	*/
+	
+	// reset(grupo:int)
+	$args = array (
+		"grupo" => "4"
+	);
+	$result = $client->reset($args);
+	
+	echo "<br/>reset(grupo:int)<br/>";
+	echo $result->return."<br/>";
+	
 	
 	
 	/*
@@ -584,7 +593,7 @@ try {
 	/*
 	Grupo 16 - Meio de Pagamento: Banco
 	*/
-	
+	/*
 	$client = new SoapClient("http://www.mc747.homologa.isat.com.br/BancoService.svc?wsdl");
 
 	// PagarViaDepositoBancario(agencia:int, conta:int, valor:double)
@@ -616,7 +625,7 @@ try {
 	
 	echo "<br/>CancelarPagamento(idPagamento:int)<br/>";
 	echo $result->CancelarPagamentoResult."<br/>";
-	
+	*/
 
 } catch (Exception $e) {
 	echo "Exception: ";
